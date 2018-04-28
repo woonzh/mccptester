@@ -10,6 +10,7 @@ from flask_cors import CORS
 from flask_restful import Resource, Api
 import json
 import dbconnector as db
+import main
 
 app = Flask(__name__)
 api = Api(app)
@@ -23,19 +24,14 @@ CORS(app)
 #def account():
 #    return render_template('account.html')
 
-class Accounts(Resource):        
+class AccountDetails(Resource):        
     def get(self):
-        accounts=db.getAccounts()
-        result={}
-        i=0
-        for acct in accounts:
-           result[str(i)]=acct
-        
-        resp = flask.Response(json.dumps(result))
+        accounts=main.getAccountDetails()
+        resp = flask.Response(json.dumps(accounts))
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
 
-api.add_resource(Accounts, '/accounts')
+api.add_resource(AccountDetails, '/accountdetails')
 
 #test=Accounts
 #res=test.get('')
