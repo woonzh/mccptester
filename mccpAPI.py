@@ -31,7 +31,20 @@ class AccountDetails(Resource):
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
 
+class Accounts(Resource):
+    def get(self):
+        accts=db.getAccounts()
+        result={}
+        count=0
+        for acct in accts:
+            result[str(count)]=acct
+                   
+        resp = flask.Response(json.dumps(result))
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        return resp
+
 api.add_resource(AccountDetails, '/accountdetails')
+api.add_resource(Accounts, '/accounts')
 
 #test=AccountDetails
 #res=test.get('')
