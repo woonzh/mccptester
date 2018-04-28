@@ -43,6 +43,11 @@ def updateInventories(sellerid, jsontype):
         return dataFrameToJsonConverter(reconResult)
     else:
         return reconResult
+    
+def getAccountDetails():
+    df=db.getAccountDetails()
+    result=dataFrameToJsonConverter(df)
+    return result
 
 #df=updateInventories(1)
 #skulist=list(df['sku'])

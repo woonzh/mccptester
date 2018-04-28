@@ -8,6 +8,7 @@ Created on Fri Apr 27 16:04:42 2018
 import os
 from urllib import parse
 import psycopg2 as ps
+import pandas as pd
 
 def connectToDatabase():
     url='postgres://nrarbplrmncopz:83c8824b40049266f138346faf865fb3dfa9055b05a6cab130cf7a295cd40198@ec2-54-83-204-6.compute-1.amazonaws.com:5432/d43d4knqc74pv2'
@@ -50,3 +51,15 @@ def getAccounts():
         ls.append(line[0])
     
     return ls
+
+def getAccountDetails():
+    df=pd.DataFrame(columns=['acct_name', 'seller_id', 'ims_api_key', 'tms_api_key'])
+    query="SELECT * FROM accts"
+    result=runquery(query)
+    for line in result:
+        ls=list(line)
+        df.loc[str(len(df))]=ls
+    
+    return df
+
+df=getAccountDetails()
