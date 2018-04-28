@@ -8,6 +8,7 @@ Created on Mon Mar 12 16:40:15 2018
 import requests
 import json
 import pandas as pd
+import dbconnector as db
 
 url = "https://ims.urbanfox.asia/graphiql"
 
@@ -15,17 +16,17 @@ header=None
 
 def getAPIKey(sellerid):
     global header
-    path='acct dets.csv'
-    df=pd.read_csv(path)
-    for i in list(range(len(df))):
-        itm=df.loc[i]
-        if str(itm['Seller ID'])==str(sellerid):
-            headers = {
-                "Authorization": "Bearer "+str(itm['API']),
+    query="SELECT seller_id, ims_api_key FROM accts"
+    result=db.runquery(query)
+    
+    for line in result:
+        resId=line[0]
+        if str(resId)==str(sellerid):
+            apikey=line[1]
+            header = {
+                "Authorization": "Bearer "+apikey,
                 "Content-Type": "application/graphql"
                    }
-            
-            header=headers
 
 def getinventory(sku):
     global header

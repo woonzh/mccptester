@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/index.js')}}"></script>
+  <meta charset="UTF-8">
+  <title>UrbanFox</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}"
+
+
+</head>
+
+<body onload="onload()">
+
+<form action="#" id="loading">
+
+</form>
+
+
+<form action="#" id="booking-form">
+
+		<div class="tab-content">
+			<div class="tab-pane" id="step1">
+				<ul>
+					<li>
+            <h1>MCCP tester</h1>
+            <label>Which account would you like to test / sync?</label>
+            <div class="errorTxt"></div>
+            <select class="cust_list" name="bf_totalGuests" id="cust_list" required>
+              <option value="">Select</option>
+					</select>
+				 </li>
+				 <li style="list-style: none; display: inline">
+						<button class="next-btn" type="button" type="click" onclick="butClick()">Generate</button>
+					</li>
+				</ul>
+			</div>
+</form>
+
+<br></br>
+
+<h2> List of accounts </h2>
+<button onclick="location.href='account'" type="button" id="export-btn" class="btn btn-primary" >Account details</button>
+<br></br>
+<table id="acctTable">
+
+</table>
+
+<br></br>
+<h2> Create New Account </h2>
+
+<form action="#" id="newAcct">
+  Account name:<br>
+  <input type="text" id="name" class='fields'><br>
+  MCCP seller id:<br>
+  <input type="text" id="sellerid" class='fields'><br>
+  IMS API Key:<br>
+  <input type="text" id="imsapi" class='fields'><br>
+  TMS API Key:<br>
+  <input type="text" id="tmsapi" class='fields'><br>
+  <input type="button" id="acctSubmit" class="submit" value="Submit" onclick="createAccount();">
+</form>
+
+</body>
+
+</html>
