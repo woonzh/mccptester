@@ -18,7 +18,7 @@ def dataFrameToJsonConverter(df):
     result={}
     
     for i in list(range(length)):
-        line=df.loc[str(i)]
+        line=df.loc[i]
         lineres={}
         j=0
         
@@ -43,8 +43,6 @@ def updateInventories(sellerid, recon):
         return dataFrameToJsonConverter(reconResult)
     else:
         return dataFrameToJsonConverter(collatedinven)
-    
-df=updateInventories(1, "false")
 
 def updateSingularSKU(mccpsku, imssku):
     IMSCall.getAPIKey()

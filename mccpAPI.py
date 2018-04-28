@@ -64,9 +64,9 @@ api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')
 api.add_resource(Inventory, '/inventory')
 
-#test=Accounts
-#res=test.get('')
-#print(res.data)
+test=Accounts
+res=test.get('')
+print(res.data)
 
-if __name__ == '__main__':
-     app.run(debug=True)
+#if __name__ == '__main__':
+#     app.run(debug=True)
