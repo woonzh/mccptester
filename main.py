@@ -43,6 +43,8 @@ def updateInventories(sellerid, recon):
         return dataFrameToJsonConverter(reconResult)
     else:
         return dataFrameToJsonConverter(collatedinven)
+    
+df=updateInventories(1, "false")
 
 def updateSingularSKU(mccpsku, imssku):
     IMSCall.getAPIKey()
