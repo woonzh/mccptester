@@ -35,15 +35,22 @@ def updateOrders():
     df=pd.read_csv(path)
     MPCall.updateOrders(df)
 
-def updateInventories(sellerid, jsontype):
+def updateInventories(sellerid, recon):
     skulist=MPCall.getMCCPInventories(sellerid)
     collatedinven=IMSCall.getIMSInventory(sellerid, skulist)
-    reconResult=MPCall.reconInven(sellerid, collatedinven)
-    if jsontype:
+    if (recon=="true"):
+        reconResult=MPCall.reconInven(sellerid, collatedinven)
         return dataFrameToJsonConverter(reconResult)
     else:
-        return reconResult
-    
+        return dataFrameToJsonConverter(collatedinven)
+
+def updateSingularSKU(mccpsku, imssku):
+    IMSCall.getAPIKey()
+    qty=IMSCall.getSingleIMSInventory(imssku)
+    sellerid=mccpsku[:(len(mccpsku)-len(imssku)-1)]
+    result=MPCall.updateInven(imssku, qty, sellerid)
+    return result
+
 def getAccountDetails():
     df=db.getAccountDetails()
     result=dataFrameToJsonConverter(df)

@@ -43,12 +43,19 @@ def getinventory(sku):
 def getIMSInventory(sellerid, skulist):
     getAPIKey(sellerid)
     ls=[]
+    sync=[]
     for i in list(range(len(skulist))):
         imssku=skulist.iloc[i,2]
+        mccpqty=skulist.iloc[i,1]
         qty=getinventory(imssku)
         ls.append(qty)
+        if str(mccpqty)==str(qty):
+            sync.append("match")
+        else:
+            sync.append("mismatch")
     
     skulist['ims qty']=ls
+    skulist['match']=sync
         
     return skulist
 

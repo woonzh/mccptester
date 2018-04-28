@@ -42,9 +42,26 @@ class Accounts(Resource):
         resp = flask.Response(json.dumps(result))
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
+    
+class Inventory(Resource):
+    def get(self):
+        ctype = request.args.get("ctype" ,type = str)
+        sellerid = request.args.get("sellerid" ,type = str, default="")
+        purpose=request.args.get("purpose", type=str)
+        imssku=request.args.get("imssku", type=str, default="")
+        mccpsku=request.args.get("mccpsku", type=str, default="")
+        
+        if (purpose=="data"):
+            main.updateInventories(sellerid, "false")
+        else:
+            if (ctype=="seller"):
+                main.updateInventories(sellerid, "true")
+            else:
+                main.updateSingularSKU(mccpsku, imssku)
 
 api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')
+api.add_resource(Inventory, '/inventory')
 
 #test=AccountDetails
 #res=test.get('')
