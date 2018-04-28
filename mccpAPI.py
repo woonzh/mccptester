@@ -33,7 +33,7 @@ class AccountDetails(Resource):
 
 api.add_resource(AccountDetails, '/accountdetails')
 
-#test=Accounts
+#test=AccountDetails
 #res=test.get('')
 #print(res.data)
 
