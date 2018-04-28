@@ -44,13 +44,19 @@ def runquery(query):
     return result
 
 def getAccounts():
-    query="SELECT acct_name FROM accts"
+    query="SELECT seller_id, acct_name FROM accts"
     result=runquery(query)
-    ls=[]
+    ret={}
+    i=0
     for line in result:
-        ls.append(line[0])
+        ls={
+            "seller_id":line[0],
+            "acct_name":line[1]
+                }
+        ret[str(i)]=ls
+        i+=1
     
-    return ls
+    return ret
 
 def getAccountDetails():
     df=pd.DataFrame(columns=['acct_name', 'seller_id', 'ims_api_key', 'tms_api_key'])

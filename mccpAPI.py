@@ -34,12 +34,8 @@ class AccountDetails(Resource):
 class Accounts(Resource):
     def get(self):
         accts=db.getAccounts()
-        result={}
-        count=0
-        for acct in accts:
-            result[str(count)]=acct
                    
-        resp = flask.Response(json.dumps(result))
+        resp = flask.Response(json.dumps(accts))
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
     
@@ -63,9 +59,9 @@ api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')
 api.add_resource(Inventory, '/inventory')
 
-#test=AccountDetails
-#res=test.get('')
-#print(res.data)
+test=Accounts
+res=test.get('')
+print(res.data)
 
-if __name__ == '__main__':
-     app.run(debug=True)
+#if __name__ == '__main__':
+#     app.run(debug=True)
