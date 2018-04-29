@@ -17,7 +17,7 @@ from worker import conn
 import logging
 import sys
 
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+#logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 def dataFrameToJsonConverter(df):
     columns=list(df)
