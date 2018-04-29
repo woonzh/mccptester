@@ -51,6 +51,8 @@ class Inventory(Resource):
         
         if (purpose=="data"):
             result=main.updateInventories(sellerid, "false")
+            print("success")
+            print(result)
         else:
             if (ctype=="seller"):
                 result=main.updateInventories(sellerid, "true")

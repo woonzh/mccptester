@@ -63,5 +63,5 @@ def getAccountDetails():
     return result
 
 #df=getAccountDetails()
-#df=updateInventories(1, "false")
+#df=updateInventories('1', "false")
 #skulist=list(df['sku'])
