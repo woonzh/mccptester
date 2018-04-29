@@ -13,8 +13,8 @@ import dbconnector as db
 import main
 from rq import Queue
 from worker import conn
-import logging
-import sys
+#import logging
+#import sys
 
 #logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
