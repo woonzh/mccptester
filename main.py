@@ -61,19 +61,19 @@ def updateInventories(sellerid, recon):
         return result
     
 def updateInventories2(sellerid, recon):
-    print("seller id: " + sellerid)
-    skulist=MPCall.getMCCPInventories(sellerid)
-    collatedinven=IMSCall.getIMSInventory2(sellerid, skulist)
-    if (recon=="true"):
-        reconResult=MPCall.reconInven(sellerid, collatedinven)
-        result=dataFrameToJsonConverter(reconResult)
-        print("return recon result")
-#        return result
-    else:
-        result=dataFrameToJsonConverter(collatedinven)
-        print("return collated inven")
-        print(result)
-#        return result
+    print("seller id: " + str(sellerid))
+#    skulist=MPCall.getMCCPInventories(sellerid)
+#    collatedinven=IMSCall.getIMSInventory2(sellerid, skulist)
+#    if (recon=="true"):
+#        reconResult=MPCall.reconInven(sellerid, collatedinven)
+#        result=dataFrameToJsonConverter(reconResult)
+#        print("return recon result")
+##        return result
+#    else:
+#        result=dataFrameToJsonConverter(collatedinven)
+#        print("return collated inven")
+#        print(result)
+##        return result
 
 def updateSingularSKU(mccpsku, imssku):
     IMSCall.getAPIKey()
