@@ -11,7 +11,8 @@ from flask_restful import Resource, Api
 import json
 import dbconnector as db
 import main
-from rq import Queue
+from rq import push_connection, get_failed_queue, Queue, use_connection
+from rq.job import Job
 from worker import conn
 #import logging
 #import sys
@@ -54,7 +55,7 @@ class Testworker(Resource):
         q=Queue(connection=conn)
         q.enqueue(main.updateInventories2, "1", "false")
         print("testworker ends")
-        return "success"
+        return str(q.key)
     
 class Inventory(Resource):
     def get(self):
@@ -81,12 +82,34 @@ class Inventory(Resource):
         resp.headers['Access-Control-Allow-Origin'] = '*'
         print("header success")
         return resp
+    
+class Failedworkers(Resource):
+    def get(self):
+        result=get_failed_queue()
+        return result
+    
+class GetJobReport():
+    def get(self):
+        jobid = request.args.get("jobid" ,type = str)
+        conn=use_connection()
+        job = Job.fetch(jobid,conn)
+        if job.is_finished:
+            ret = job.return_value
+        elif job.is_queued:
+            ret = {'status':'in-queue'}
+        elif job.is_started:
+            ret = {'status':'waiting'}
+        elif job.is_failed:
+            ret = {'status': 'failed'}
         
+        return ret
 
 api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')
 api.add_resource(Inventory, '/inventory')
 api.add_resource(Testworker, '/testworker')
+api.add_resource(Failedworkers, '/failedworkers')
+api.add_resource(GetJobReport, '/jobreport')
 
 #test=Inventory
 #res=test.get('')

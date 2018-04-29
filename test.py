@@ -8,6 +8,10 @@ Created on Sun Apr 29 10:19:04 2018
 import requests
 import json
 
+from redis import StrictRedis
+from rq import push_connection, get_failed_queue, Queue
+from rq.job import Job
+
 #url='https://mccptester.herokuapp.com/inventory'
 #
 #body={
@@ -20,7 +24,9 @@ import json
 #url='https://mccptester.herokuapp.com/accountdetails'
 #response=requests.get(url)
 #
-url='https://mccptester.herokuapp.com/testworker'
-response=requests.get(url)
+#url='https://mccptester.herokuapp.com/testworker'
+#response=requests.get(url)
+#
+#print(response.content)
 
-print(response.content)
+fq = get_failed_queue()
