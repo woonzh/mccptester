@@ -81,7 +81,7 @@ def getAccountDetails():
     result=dataFrameToJsonConverter(df)
     return result
 
-def testworker(rep):
+def testworker():
     print("test worker "+rep)
 
 #df=getAccountDetails()
