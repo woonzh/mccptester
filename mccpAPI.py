@@ -49,7 +49,7 @@ class Testworker(Resource):
         main.recon="false"
         print("testworker starts")
         q=Queue(connection=conn)
-        q.enqueue(main.updateInventories2)
+        q.enqueue(main.testworker)
         print("testworker ends")
         return "success"
     

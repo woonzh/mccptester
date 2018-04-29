@@ -88,7 +88,7 @@ def getAccountDetails():
     return result
 
 def testworker():
-    print("test worker "+rep)
+    print("test worker ")
 
 #df=getAccountDetails()
 #df=updateInventories2('1', "false")
