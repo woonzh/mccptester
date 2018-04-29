@@ -37,11 +37,14 @@ def updateOrders():
 
 def updateInventories(sellerid, recon):
     skulist=MPCall.getMCCPInventories(sellerid)
+    print("skulist completed")
     collatedinven=IMSCall.getIMSInventory(sellerid, skulist)
+    print("collated inven completed")
     if (recon=="true"):
         reconResult=MPCall.reconInven(sellerid, collatedinven)
         return dataFrameToJsonConverter(reconResult)
     else:
+        print("return collated inven")
         return dataFrameToJsonConverter(collatedinven)
     
 #df=updateInventories(1, "false")
