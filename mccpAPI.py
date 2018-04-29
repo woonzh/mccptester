@@ -47,6 +47,8 @@ class Inventory(Resource):
         imssku=request.args.get("imssku", type=str, default="")
         mccpsku=request.args.get("mccpsku", type=str, default="")
         
+        print("purpose: %s, sellerid: %s, ctyep: %s"%(purpose, sellerid, ctype))
+        
         if (purpose=="data"):
             result=main.updateInventories(sellerid, "false")
         else:

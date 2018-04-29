@@ -16,3 +16,5 @@ body={
         }
 
 response=requests.get(url, params=body)
+
+print(response.content)
