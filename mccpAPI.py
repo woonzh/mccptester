@@ -50,17 +50,19 @@ class Inventory(Resource):
         print("purpose: %s, sellerid: %s, ctype: %s"%(purpose, sellerid, ctype))
         
         if (purpose=="data"):
-            result=main.updateInventories(sellerid, "false")
+            result=main.updateInventories2(sellerid, "false")
             print("success")
             print(result)
         else:
             if (ctype=="seller"):
-                result=main.updateInventories(sellerid, "true")
+                result=main.updateInventories2(sellerid, "true")
             else:
                 result=main.updateSingularSKU(mccpsku, imssku)
         
         resp = flask.Response(json.dumps(result))
+        print("json dumps success")
         resp.headers['Access-Control-Allow-Origin'] = '*'
+        print("header success")
         return resp
         
 

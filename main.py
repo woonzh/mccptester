@@ -11,6 +11,7 @@ import pandas as pd
 import MPCall
 import IMSCall
 import dbconnector as db
+import time
 
 def dataFrameToJsonConverter(df):
     columns=list(df)
@@ -36,10 +37,31 @@ def updateOrders():
     MPCall.updateOrders(df)
 
 def updateInventories(sellerid, recon):
+    start = time.time()
     skulist=MPCall.getMCCPInventories(sellerid)
-    print("skulist completed")
+    end1 = time.time()
+    print("skulist completed: "+ str(end1-start))
     collatedinven=IMSCall.getIMSInventory(sellerid, skulist)
-    print("collated inven completed")
+    end2 = time.time()
+    print("collated inven completed: "+ str(end2-start))
+    if (recon=="true"):
+        reconResult=MPCall.reconInven(sellerid, collatedinven)
+        result=dataFrameToJsonConverter(reconResult)
+        print("return recon result")
+        return result
+    else:
+        result=dataFrameToJsonConverter(collatedinven)
+        print("return collated inven")
+        return result
+    
+def updateInventories2(sellerid, recon):
+    start = time.time()
+    skulist=MPCall.getMCCPInventories(sellerid)
+    end1 = time.time()
+    print("skulist completed: "+ str(end1-start))
+    collatedinven=IMSCall.getIMSInventory2(sellerid, skulist)
+    end2 = time.time()
+    print("collated inven completed: "+ str(end2-start))
     if (recon=="true"):
         reconResult=MPCall.reconInven(sellerid, collatedinven)
         result=dataFrameToJsonConverter(reconResult)
@@ -63,5 +85,5 @@ def getAccountDetails():
     return result
 
 #df=getAccountDetails()
-#df=updateInventories('1', "false")
+#df=updateInventories2('1', "false")
 #skulist=list(df['sku'])
