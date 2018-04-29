@@ -51,7 +51,7 @@ class Testworker(Resource):
     def get(self):
         main.sellerid="1"
         main.recon="false"
-        print("testworker starts")
+        print("testworker start")
         q=Queue(connection=conn)
         q.enqueue(main.updateInventories2)
         print("testworker ends")
