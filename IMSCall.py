@@ -61,3 +61,8 @@ def getIMSInventory(sellerid, skulist):
 
 def getOrderStatus(refnum):
     t=''
+    
+#getAPIKey(1)
+#data = 'query { getItem(sku:"%s") {sku quantity}}' %('merries5')
+#response=requests.post(url, headers=header, data=data)
+#print(response.content)
