@@ -44,10 +44,8 @@ def updateInventories(sellerid, recon):
         reconResult=MPCall.reconInven(sellerid, collatedinven)
         return dataFrameToJsonConverter(reconResult)
     else:
-        print("return collated inven")
         return dataFrameToJsonConverter(collatedinven)
-    
-#df=updateInventories(1, "false")
+        print("return collated inven")
 
 def updateSingularSKU(mccpsku, imssku):
     IMSCall.getAPIKey()
@@ -62,5 +60,5 @@ def getAccountDetails():
     return result
 
 #df=getAccountDetails()
-#df=updateInventories(1, "false")
+df=updateInventories(1, "false")
 #skulist=list(df['sku'])

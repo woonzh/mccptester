@@ -19,5 +19,7 @@ response=requests.get(url, params=body)
 
 #url='http://mccptester.herokuapp.com/accountdetails'
 #response=requests.get(url)
-#
-#print(response.content)
+
+
+
+print(response.content)

@@ -63,6 +63,6 @@ def getOrderStatus(refnum):
     t=''
     
 #getAPIKey(1)
-#data = 'query { getItem(sku:"%s") {sku quantity}}' %('merries5')
+#data = 'query { listItems(page:1, pageSize:100) {sku quantity}}' 
 #response=requests.post(url, headers=header, data=data)
 #print(response.content)
