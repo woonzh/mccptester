@@ -11,6 +11,8 @@ from flask_restful import Resource, Api
 import json
 import dbconnector as db
 import main
+from rq import Queue
+from worker import conn
 
 app = Flask(__name__)
 api = Api(app)
@@ -38,6 +40,12 @@ class Accounts(Resource):
         resp = flask.Response(json.dumps(accts))
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
+    
+class Testworker(Resource):
+    def get(self):
+        print("testworker starts")
+        q=Queue(connection=conn)
+        q.enqueue(main.testworker)
     
 class Inventory(Resource):
     def get(self):
@@ -69,6 +77,7 @@ class Inventory(Resource):
 api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')
 api.add_resource(Inventory, '/inventory')
+api.add_resource(Testworker, '/testworker')
 
 #test=Inventory
 #res=test.get('')

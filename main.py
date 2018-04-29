@@ -84,6 +84,9 @@ def getAccountDetails():
     result=dataFrameToJsonConverter(df)
     return result
 
+def testworker():
+    print("test worker")
+
 #df=getAccountDetails()
 #df=updateInventories2('1', "false")
 #skulist=list(df['sku'])
