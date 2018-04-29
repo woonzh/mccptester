@@ -18,7 +18,7 @@ def dataFrameToJsonConverter(df):
     result={}
     
     for i in list(range(length)):
-        line=df.loc[i]
+        line=df.loc[str(i)]
         lineres={}
         j=0
         
@@ -61,7 +61,7 @@ def getAccountDetails():
     result=dataFrameToJsonConverter(df)
     return result
 
-#df2=getAccountDetails()
+#df=getAccountDetails()
 
 #df=updateInventories(1, "false")
 #skulist=list(df['sku'])
