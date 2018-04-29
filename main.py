@@ -68,12 +68,12 @@ def updateInventories2(sellerid, recon):
         reconResult=MPCall.reconInven(sellerid, collatedinven)
         result=dataFrameToJsonConverter(reconResult)
         print("return recon result")
-#        return result
+        return result
     else:
         result=dataFrameToJsonConverter(collatedinven)
         print("return collated inven")
         print(result)
-#        return result
+        return result
 
 def updateSingularSKU(mccpsku, imssku):
     IMSCall.getAPIKey()
