@@ -32,6 +32,7 @@ CORS(app)
 
 class AccountDetails(Resource):        
     def get(self):
+        print("get account details")
         accounts=main.getAccountDetails()
         print(accounts)
         resp = flask.Response(json.dumps(accounts))
