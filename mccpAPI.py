@@ -41,7 +41,7 @@ class Accounts(Resource):
     
 class Inventory(Resource):
     def get(self):
-        ctype = request.args.get("ctype" ,type = str, ctype="")
+        ctype = request.args.get("ctype" ,type = str, default="")
         sellerid = request.args.get("sellerid" ,type = str, default="")
         purpose=request.args.get("purpose", type=str)
         imssku=request.args.get("imssku", type=str, default="")
