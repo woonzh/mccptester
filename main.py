@@ -15,6 +15,9 @@ import time
 from rq import Queue
 from worker import conn
 
+sellerid=None
+recon=None
+
 def dataFrameToJsonConverter(df):
     columns=list(df)
     length=len(df)
@@ -56,18 +59,20 @@ def updateInventories(sellerid, recon):
         print("return collated inven")
         return result
     
-def updateInventories2(sellerid, recon):
+def updateInventories2():
+    global sellerid, recon
     skulist=MPCall.getMCCPInventories(sellerid)
     collatedinven=IMSCall.getIMSInventory2(sellerid, skulist)
     if (recon=="true"):
         reconResult=MPCall.reconInven(sellerid, collatedinven)
         result=dataFrameToJsonConverter(reconResult)
         print("return recon result")
-        return result
+#        return result
     else:
         result=dataFrameToJsonConverter(collatedinven)
         print("return collated inven")
-        return result
+        print(result)
+#        return result
 
 def updateSingularSKU(mccpsku, imssku):
     IMSCall.getAPIKey()
