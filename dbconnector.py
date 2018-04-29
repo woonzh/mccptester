@@ -9,6 +9,9 @@ import os
 from urllib import parse
 import psycopg2 as ps
 import pandas as pd
+import datetime
+import random
+import string
 
 def connectToDatabase():
     url='postgres://nrarbplrmncopz:83c8824b40049266f138346faf865fb3dfa9055b05a6cab130cf7a295cd40198@ec2-54-83-204-6.compute-1.amazonaws.com:5432/d43d4knqc74pv2'
@@ -43,6 +46,23 @@ def runquery(query):
     conn.commit()
     return result
 
+def idgenerator():
+    result=''.join([random.choice(string.ascii_letters + string.digits) for n in range(16)])
+    return result
+
+def addWorkerLine(calltype):
+    timestart=datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+    wid=idgenerator()
+    query="INSERT INTO worker (wid, calltype, reply, starttime) VALUES('%s', '%s', '%s', '%s')" %(wid,calltype,"generating", timestart)
+    result=runquery(query)
+    return wid
+    
+def updateWorkerLine(wid, reply):
+    endtime=datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+    query="UPDATE worker SET reply='%s', endtime='%s' WHERE wid='%s'" %(reply, endtime, wid)
+    result=runquery(query)
+    return result
+
 def getAccounts():
     query="SELECT seller_id, acct_name FROM accts"
     result=runquery(query)
@@ -67,5 +87,3 @@ def getAccountDetails():
         df.loc[str(len(df))]=ls
     
     return df
-
-df=getAccountDetails()

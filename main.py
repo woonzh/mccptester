@@ -12,6 +12,8 @@ import MPCall
 import IMSCall
 import dbconnector as db
 import time
+from rq import Queue
+from worker import conn
 
 def dataFrameToJsonConverter(df):
     columns=list(df)
@@ -55,13 +57,8 @@ def updateInventories(sellerid, recon):
         return result
     
 def updateInventories2(sellerid, recon):
-    start = time.time()
     skulist=MPCall.getMCCPInventories(sellerid)
-    end1 = time.time()
-    print("skulist completed: "+ str(end1-start))
     collatedinven=IMSCall.getIMSInventory2(sellerid, skulist)
-    end2 = time.time()
-    print("collated inven completed: "+ str(end2-start))
     if (recon=="true"):
         reconResult=MPCall.reconInven(sellerid, collatedinven)
         result=dataFrameToJsonConverter(reconResult)
@@ -84,8 +81,8 @@ def getAccountDetails():
     result=dataFrameToJsonConverter(df)
     return result
 
-def testworker():
-    print("test worker")
+def testworker(rep):
+    print("test worker "+rep)
 
 #df=getAccountDetails()
 #df=updateInventories2('1', "false")

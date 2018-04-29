@@ -45,7 +45,7 @@ class Testworker(Resource):
     def get(self):
         print("testworker starts")
         q=Queue(connection=conn)
-        q.enqueue(main.testworker)
+        q.enqueue(main.testworker("test reply"))
         return "success"
     
 class Inventory(Resource):
