@@ -61,7 +61,7 @@ def updateInventories(sellerid, recon):
         return result
     
 def updateInventories2(sellerid, recon):
-    print("seller id: " + str(sellerid))
+    print("seller id: ") #+ str(sellerid))
 #    skulist=MPCall.getMCCPInventories(sellerid)
 #    collatedinven=IMSCall.getIMSInventory2(sellerid, skulist)
 #    if (recon=="true"):
