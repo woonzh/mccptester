@@ -19,9 +19,6 @@ import sys
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
-sellerid=None
-recon=None
-
 def dataFrameToJsonConverter(df):
     columns=list(df)
     length=len(df)
@@ -63,8 +60,7 @@ def updateInventories(sellerid, recon):
         print("return collated inven")
         return result
     
-def updateInventories2():
-    global sellerid, recon
+def updateInventories2(sellerid, recon):
     print("seller id: " + sellerid)
     skulist=MPCall.getMCCPInventories(sellerid)
     collatedinven=IMSCall.getIMSInventory2(sellerid, skulist)
