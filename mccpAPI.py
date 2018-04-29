@@ -49,11 +49,11 @@ class Accounts(Resource):
     
 class Testworker(Resource):
     def get(self):
-#        main.sellerid="1"
-#        main.recon="false"
+        main.sellerid="1"
+        main.recon="false"
         print("testworker starts")
         q=Queue(connection=conn)
-        q.enqueue(main.testworker)
+        q.enqueue(main.updateInventories2)
         print("testworker ends")
         return "success"
     

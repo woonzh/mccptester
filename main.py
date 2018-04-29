@@ -14,6 +14,10 @@ import dbconnector as db
 import time
 from rq import Queue
 from worker import conn
+import logging
+import sys
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 sellerid=None
 recon=None
