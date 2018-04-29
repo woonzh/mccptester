@@ -8,7 +8,7 @@ Created on Sun Apr 29 10:19:04 2018
 import requests
 import json
 
-#url='http://mccptester.herokuapp.com/inventory'
+#url='https://mccptester.herokuapp.com/inventory'
 #
 #body={
 #    "sellerid":"1",
@@ -17,10 +17,10 @@ import json
 #
 #response=requests.get(url, params=body)
 
-url='http://mccptester.herokuapp.com/accountdetails'
-response=requests.get(url)
-#
-#url='http://mccptester.herokuapp.com/testworker'
+#url='https://mccptester.herokuapp.com/accountdetails'
 #response=requests.get(url)
+#
+url='https://mccptester.herokuapp.com/testworker'
+response=requests.get(url)
 
 print(response.content)
