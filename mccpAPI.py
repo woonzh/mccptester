@@ -29,6 +29,7 @@ CORS(app)
 class AccountDetails(Resource):        
     def get(self):
         accounts=main.getAccountDetails()
+        print(accounts)
         resp = flask.Response(json.dumps(accounts))
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
@@ -36,6 +37,7 @@ class AccountDetails(Resource):
 class Accounts(Resource):
     def get(self):
         accts=db.getAccounts()
+        print(accts)
                    
         resp = flask.Response(json.dumps(accts))
         resp.headers['Access-Control-Allow-Origin'] = '*'
