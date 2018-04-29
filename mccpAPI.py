@@ -64,7 +64,7 @@ api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')
 api.add_resource(Inventory, '/inventory')
 
-#test=Accounts
+#test=Inventory
 #res=test.get('')
 #print(res.data)
 

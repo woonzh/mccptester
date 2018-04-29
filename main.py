@@ -23,7 +23,7 @@ def dataFrameToJsonConverter(df):
         j=0
         
         for tit in columns:
-            lineres[tit]=line[j]
+            lineres[tit]=str(line[j])
             j=j+1
             
         result[str(i)]=lineres
@@ -43,6 +43,8 @@ def updateInventories(sellerid, recon):
         return dataFrameToJsonConverter(reconResult)
     else:
         return dataFrameToJsonConverter(collatedinven)
+    
+#df=updateInventories(1, "false")
 
 def updateSingularSKU(mccpsku, imssku):
     IMSCall.getAPIKey()
@@ -58,5 +60,5 @@ def getAccountDetails():
 
 #df2=getAccountDetails()
 
-#df=updateInventories(1)
+#df=updateInventories(1, "false")
 #skulist=list(df['sku'])
