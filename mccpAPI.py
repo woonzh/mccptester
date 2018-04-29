@@ -15,6 +15,7 @@ from rq import Queue
 from worker import conn
 import logging
 import sys
+
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 app = Flask(__name__)
