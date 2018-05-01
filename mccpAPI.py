@@ -64,19 +64,21 @@ class Inventory(Resource):
         mccpsku=request.args.get("mccpsku", type=str, default="")
         
         print("purpose: %s, sellerid: %s, ctype: %s"%(purpose, sellerid, ctype))
+        q=Queue(connection=conn)
         
         if (purpose=="data"):
-            result=main.updateInventories2(sellerid, "false")
+            job=q.enqueue(main.updateInventories2,sellerid, "false")
             print("success")
-            print(result)
+            print(job.id)
+            resp = flask.Response(job.id)
         else:
             if (ctype=="seller"):
-                result=main.updateInventories2(sellerid, "true")
+                job=q.enqueue(main.updateInventories2,sellerid, "true")
+                resp = flask.Response(job.id)
             else:
                 result=main.updateSingularSKU(mccpsku, imssku)
+                resp = flask.Response(result)
         
-        resp = flask.Response(json.dumps(result))
-        print("json dumps success")
         resp.headers['Access-Control-Allow-Origin'] = '*'
         print("header success")
         return resp

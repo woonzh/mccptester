@@ -47,9 +47,10 @@ def getResult(jid):
 #url='https://mccptester.herokuapp.com/accountdetails'
 #response=requests.get(url)
 #
-url='https://mccptester.herokuapp.com/testworker'
-response=requests.get(url)
+#url='https://mccptester.herokuapp.com/testworker'
+#response=requests.get(url)
+#
+#print(response.content)
 
-print(response.content)
-
-#result=getResult('')
+result=getResult('73e253f9-f1ac-4183-a042-bda6a98ddf73')
+print(result)
