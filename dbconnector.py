@@ -87,3 +87,4 @@ def getAccountDetails():
         df.loc[str(len(df))]=ls
     
     return df
+

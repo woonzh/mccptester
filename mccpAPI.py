@@ -11,13 +11,11 @@ from flask_restful import Resource, Api
 import json
 import dbconnector as db
 import main
-from rq import push_connection, get_failed_queue, Queue, use_connection
+import redis
+from rq import Connection, get_failed_queue
 from rq.job import Job
 from worker import conn
-#import logging
-#import sys
-
-#logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+import os
 
 app = Flask(__name__)
 api = Api(app)
@@ -85,22 +83,28 @@ class Inventory(Resource):
     
 class Failedworkers(Resource):
     def get(self):
-        result=get_failed_queue()
-        return result
+        redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
+        conn = redis.from_url(redis_url)
+        with Connection(conn):
+            failed_jobs= get_failed_queue()
+            print(failed_jobs.jobs)
+            return failed_jobs.jobs
     
 class GetJobReport(Resource):
     def get(self):
-        jobid = request.args.get("jobid" ,type = str)
-        conn=use_connection()
-        job = Job.fetch(jobid,conn)
-        if job.is_finished:
-            ret = job.return_value
-        elif job.is_queued:
-            ret = {'status':'in-queue'}
-        elif job.is_started:
-            ret = {'status':'waiting'}
-        elif job.is_failed:
-            ret = {'status': 'failed'}
+        jobid = request.args.get("jobid" ,type = str, default="")
+        redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
+        conn = redis.from_url(redis_url)
+        with Connection(conn):
+            job = Job.fetch(jobid,conn)
+            if job.is_finished:
+                ret = job.return_value
+            elif job.is_queued:
+                ret = {'status':'in-queue'}
+            elif job.is_started:
+                ret = {'status':'waiting'}
+            elif job.is_failed:
+                ret = {'status': 'failed'}
         
         return ret
 
