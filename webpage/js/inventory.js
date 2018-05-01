@@ -61,6 +61,33 @@ $('.table-sync').click(function () {
   }*/
 });
 
+function getReply(jid){
+  url="https://mccptester.herokuapp.com/jobreport";
+  var succ=false;
+  while (succ==false){}
+    $.ajax({
+      url: url,
+      type: 'GET',
+      data:{
+        jobid:"jid"
+      },
+      success: function (data) {
+        var result=json.parse(data);
+        var status=result['status'];
+        if status=="completed"{
+
+        }else{
+
+        }
+      },
+      error: function(jqxhr, status, exception) {
+          alert('Exception:', exception);
+          document.getElementById("loading").style.display="none";
+      }
+    });
+  }
+}
+
 function acctChange(){
   document.getElementById("loading").style.display="block";
   var acct=document.getElementById("account").value;
@@ -75,7 +102,10 @@ function acctChange(){
       purpose:"data"
     },
     success: function (data) {
-      var accts = JSON.parse(data);
+      alert(data);
+      var jidraw=JSON.parse(data);
+      var jid=jidraw['jobid'];
+      /*var accts = JSON.parse(data);
       var tableRef = document.getElementById("acctTable");
       rowCount=2;
       for (var i in accts){
@@ -90,7 +120,7 @@ function acctChange(){
           colCount=colCount+1;
         }
         rowCount=rowCount+1;
-      }
+      }*/
       document.getElementById("loading").style.display="none";
     },
     error: function(jqxhr, status, exception) {

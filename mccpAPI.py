@@ -110,7 +110,7 @@ class GetJobReport(Resource):
             job = Job.fetch(jobid,conn)
             if job.is_finished:
                 ret['status']='Completed'
-                ret['value']=job.return_value
+                ret['result']=job.return_value
             elif job.is_queued:
                 ret['status']='in-queue'
             elif job.is_started:
