@@ -66,19 +66,21 @@ class Inventory(Resource):
         print("purpose: %s, sellerid: %s, ctype: %s"%(purpose, sellerid, ctype))
         q=Queue(connection=conn)
         
+        result={}
+        
         if (purpose=="data"):
             job=q.enqueue(main.updateInventories2,sellerid, "false")
             print("success")
+            result['jobid']=str(job.id)
             print(job.id)
-            resp = flask.Response(job.id)
         else:
             if (ctype=="seller"):
                 job=q.enqueue(main.updateInventories2,sellerid, "true")
-                resp = flask.Response(job.id)
+                result['jobid']=str(job.id)
             else:
                 result=main.updateSingularSKU(mccpsku, imssku)
-                resp = flask.Response(result)
-        
+                
+        resp = flask.Response(result)
         resp.headers['Access-Control-Allow-Origin'] = '*'
         print("header success")
         return resp
