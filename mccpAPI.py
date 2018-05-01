@@ -51,11 +51,9 @@ class Testworker(Resource):
     def get(self):
         print("testworker start")
         q=Queue(connection=conn)
-        q.enqueue(main.updateInventories2, "1", "false")
-        currJob=get_current_job(conn)
-        jid=currJob.id
+        job=q.enqueue(main.updateInventories2, "1", "false")
         print("testworker ends")
-        return str(jid)
+        return str(job.id)
     
 class Inventory(Resource):
     def get(self):
