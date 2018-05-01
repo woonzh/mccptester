@@ -12,7 +12,7 @@ import json
 import dbconnector as db
 import main
 import redis
-from rq import Connection, get_failed_queue
+from rq import Connection, get_failed_queue, Queue
 from rq.job import Job
 from worker import conn
 import os

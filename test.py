@@ -13,7 +13,7 @@ import os
 from rq import Worker, Queue, Connection, get_failed_queue
 from rq.job import Job
 
-def get(jid):
+def getFailedQueue(jid):
     try:
         conn = redis.from_url('redis://redistogo:a45da5254d1f41c9dd1228b816f79dc4@albacore.redistogo.com:10191/')
         with Connection(conn):
@@ -31,10 +31,6 @@ def get(jid):
         return ret
     except Exception as ex:
         return ex
-    
-conn = redis.from_url('redis://redistogo:a45da5254d1f41c9dd1228b816f79dc4@albacore.redistogo.com:10191/')
-with Connection(conn):
-    failed=get_failed_queue()
 
 #url='https://mccptester.herokuapp.com/inventory'
 #
@@ -48,10 +44,9 @@ with Connection(conn):
 #url='https://mccptester.herokuapp.com/accountdetails'
 #response=requests.get(url)
 #
-#url='https://mccptester.herokuapp.com/testworker'
-#response=requests.get(url)
+url='https://mccptester.herokuapp.com/testworker'
+response=requests.get(url)
 
-#url='https://mccptester.herokuapp.com/failedworkers'
-#response=requests.get(url)
-##
-#print(response.content)
+print(response.content)
+
+#result=getFailedQueue('')
