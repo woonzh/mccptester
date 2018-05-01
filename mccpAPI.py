@@ -89,28 +89,39 @@ class Failedworkers(Resource):
     def get(self):
         redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
         conn = redis.from_url(redis_url)
+        ret={}
         with Connection(conn):
             failed_jobs= get_failed_queue()
             print(failed_jobs.jobs)
-            return str(failed_jobs.jobs)
+            ret['failed jobs']=failed_jobs.jobs
+        
+        resp = flask.Response(json.dumps(ret))
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        print("header success")
+        return resp
     
 class GetJobReport(Resource):
     def get(self):
         jobid = request.args.get("jobid" ,type = str, default="")
         redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
         conn = redis.from_url(redis_url)
+        ret={}
         with Connection(conn):
             job = Job.fetch(jobid,conn)
             if job.is_finished:
-                ret = job.return_value
+                ret['status']='Completed'
+                ret['value']=job.return_value
             elif job.is_queued:
-                ret = {'status':'in-queue'}
+                ret['status']='in-queue'}
             elif job.is_started:
-                ret = {'status':'waiting'}
+                ret['status']='waiting'}
             elif job.is_failed:
-                ret = {'status': 'failed'}
+                ret['status']='failed'}
         
-        return ret
+        resp = flask.Response(json.dumps(ret))
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        print("header success")
+        return resp
 
 api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')
