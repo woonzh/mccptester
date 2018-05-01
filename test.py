@@ -14,29 +14,27 @@ from rq import Worker, Queue, Connection, get_failed_queue
 from rq.job import Job
 
 def get(jid):
+    try:
         conn = redis.from_url('redis://redistogo:a45da5254d1f41c9dd1228b816f79dc4@albacore.redistogo.com:10191/')
         with Connection(conn):
             job = Job.fetch(jid)
-        if job.is_finished:
-            ret = job.return_value
-        elif job.is_queued:
-            ret = {'status':'in-queue'}
-        elif job.is_started:
-            ret = {'status':'waiting'}
-        elif job.is_failed:
-            ret = {'status': 'failed'}
+            
+            if job.is_finished:
+                ret = job.return_value
+            elif job.is_queued:
+                ret = {'status':'in-queue'}
+            elif job.is_started:
+                ret = {'status':'waiting'}
+            elif job.is_failed:
+                ret = {'status': 'failed'}
         
         return ret
-try:
-    conn = redis.from_url('redis://redistogo:a45da5254d1f41c9dd1228b816f79dc4@albacore.redistogo.com:10191/')
-    conn.ping()
-    with Connection(conn):
-#        q = get_failed_queue()
-        result=Job.fetch('e9bf00e8-3a2a-476f-aabb-2f57c4746a90',conn)
-#        q = Queue('failed')
-except Exception as ex:
-    print ('Error:', ex)
-#q = Queue('failed', connection=conn)
+    except Exception as ex:
+        return ex
+    
+conn = redis.from_url('redis://redistogo:a45da5254d1f41c9dd1228b816f79dc4@albacore.redistogo.com:10191/')
+with Connection(conn):
+    failed=get_failed_queue()
 
 #url='https://mccptester.herokuapp.com/inventory'
 #
@@ -57,5 +55,3 @@ except Exception as ex:
 #response=requests.get(url)
 ##
 #print(response.content)
-
-#fq = get_failed_queue()

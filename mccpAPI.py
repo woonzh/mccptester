@@ -88,7 +88,7 @@ class Failedworkers(Resource):
         with Connection(conn):
             failed_jobs= get_failed_queue()
             print(failed_jobs.jobs)
-            return failed_jobs.jobs
+            return str(failed_jobs.jobs)
     
 class GetJobReport(Resource):
     def get(self):
