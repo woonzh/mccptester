@@ -32,17 +32,14 @@ def getResult(jid):
     except Exception as ex:
         return ex
     
-#conn = redis.from_url('redis://redistogo:a45da5254d1f41c9dd1228b816f79dc4@albacore.redistogo.com:10191/')
-#with Connection(conn):
-#    res=get_current_job()
-#url='https://mccptester.herokuapp.com/inventory'
-#
-#body={
-#    "sellerid":"1",
-#    "purpose":"data"
-#        }
-#
-#response=requests.get(url, params=body)
+url='https://mccptester.herokuapp.com/inventory'
+
+body={
+    "sellerid":"1",
+    "purpose":"data"
+        }
+
+response=requests.get(url, params=body)
 
 #url='https://mccptester.herokuapp.com/accountdetails'
 #response=requests.get(url)
@@ -50,7 +47,7 @@ def getResult(jid):
 #url='https://mccptester.herokuapp.com/testworker'
 #response=requests.get(url)
 #
-#print(response.content)
+print(response.content)
 
-result=getResult('73e253f9-f1ac-4183-a042-bda6a98ddf73')
-print(result)
+#result=getResult('73e253f9-f1ac-4183-a042-bda6a98ddf73')
+#print(result)

@@ -72,7 +72,7 @@ class Inventory(Resource):
             job=q.enqueue(main.updateInventories2,sellerid, "false")
             print("success")
             result['jobid']=str(job.id)
-            print(job.id)
+            print(result)
         else:
             if (ctype=="seller"):
                 job=q.enqueue(main.updateInventories2,sellerid, "true")
