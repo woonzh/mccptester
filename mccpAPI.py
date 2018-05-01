@@ -53,7 +53,7 @@ class Testworker(Resource):
         q=Queue(connection=conn)
         q.enqueue(main.updateInventories2, "1", "false")
         currJob=get_current_job(conn)
-        jid=currJob.dependencies[0].id
+        jid=currJob.id
         print("testworker ends")
         return str(jid)
     
