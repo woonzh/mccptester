@@ -80,7 +80,7 @@ class Inventory(Resource):
             else:
                 result=main.updateSingularSKU(mccpsku, imssku)
                 
-        resp = flask.Response(result)
+        resp = flask.Response(json.dumps(result))
         resp.headers['Access-Control-Allow-Origin'] = '*'
         print("header success")
         return resp
