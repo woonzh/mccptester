@@ -8,9 +8,9 @@ Created on Sun Apr 29 10:19:04 2018
 import requests
 import json
 
-from redis import StrictRedis
-from rq import push_connection, get_failed_queue, Queue
-from rq.job import Job
+#from redis import StrictRedis
+#from rq import push_connection, get_failed_queue, Queue
+#from rq.job import Job
 
 #url='https://mccptester.herokuapp.com/inventory'
 #
@@ -26,7 +26,10 @@ from rq.job import Job
 #
 #url='https://mccptester.herokuapp.com/testworker'
 #response=requests.get(url)
-#
-#print(response.content)
 
-fq = get_failed_queue()
+url='https://mccptester.herokuapp.com/failedworkers'
+response=requests.get(url)
+#
+print(response.content)
+
+#fq = get_failed_queue()

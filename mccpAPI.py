@@ -88,7 +88,7 @@ class Failedworkers(Resource):
         result=get_failed_queue()
         return result
     
-class GetJobReport():
+class GetJobReport(Resource):
     def get(self):
         jobid = request.args.get("jobid" ,type = str)
         conn=use_connection()
