@@ -12,7 +12,7 @@ import json
 import dbconnector as db
 import main
 import redis
-from rq import Connection, get_failed_queue, Queue
+from rq import Connection, get_failed_queue, Queue, get_current_job
 from rq.job import Job
 from worker import conn
 import os
@@ -52,8 +52,10 @@ class Testworker(Resource):
         print("testworker start")
         q=Queue(connection=conn)
         q.enqueue(main.updateInventories2, "1", "false")
+        currJob=get_current_job(conn)
+        jid=currJob.dependencies[0].id
         print("testworker ends")
-        return str(q.key)
+        return str(jid)
     
 class Inventory(Resource):
     def get(self):
