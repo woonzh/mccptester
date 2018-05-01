@@ -112,11 +112,11 @@ class GetJobReport(Resource):
                 ret['status']='Completed'
                 ret['value']=job.return_value
             elif job.is_queued:
-                ret['status']='in-queue'}
+                ret['status']='in-queue'
             elif job.is_started:
-                ret['status']='waiting'}
+                ret['status']='waiting'
             elif job.is_failed:
-                ret['status']='failed'}
+                ret['status']='failed'
         
         resp = flask.Response(json.dumps(ret))
         resp.headers['Access-Control-Allow-Origin'] = '*'
