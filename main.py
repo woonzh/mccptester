@@ -91,5 +91,5 @@ def testworker():
     print("test worker ")
 
 #df=getAccountDetails()
-df=updateInventories2('1', "false")
+#df=updateInventories2('1', "false")
 #skulist=list(df['sku'])
