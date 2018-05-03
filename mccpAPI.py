@@ -29,6 +29,16 @@ CORS(app)
 #def account():
 #    return render_template('account.html')
 
+class CreateAccount(Resource):
+    def get(self):
+        name = request.args.get("name" ,type = str, default="")
+        email = request.args.get("email" ,type = str, default="")
+        apikey=request.args.get("apikey", type=str)
+        password=request.args.get("password", type=str, default="")
+        shared=request.args.get("shared", type=str, default="")
+        query="INSERT INTO accts COLUMNS(name, email, apikey, password, shared) 
+        db.runquery(query)
+
 class AccountDetails(Resource):        
     def get(self):
         print("get account details")
@@ -129,6 +139,7 @@ api.add_resource(Inventory, '/inventory')
 api.add_resource(Testworker, '/testworker')
 api.add_resource(Failedworkers, '/failedworkers')
 api.add_resource(GetJobReport, '/jobreport')
+api.add_resource(CreateAccount, '/createaccount')
 
 #test=Accounts
 #res=test.get('')

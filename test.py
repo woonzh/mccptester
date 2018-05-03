@@ -32,17 +32,17 @@ import json
 #    except Exception as ex:
 #        return ex
     
-#url='https://mccptester.herokuapp.com/inventory'
-#
-#body={
-#    "sellerid":"1",
-#    "purpose":"data"
-#        }
-#
-#response=requests.get(url, params=body)
+url='https://mccptester.herokuapp.com/inventory'
 
-url='https://mccptester.herokuapp.com/accountdetails'
-response=requests.get(url)
+body={
+    "sellerid":"1",
+    "purpose":"data"
+        }
+
+response=requests.get(url, params=body)
+
+#url='https://mccptester.herokuapp.com/accountdetails'
+#response=requests.get(url)
 #
 #url='https://mccptester.herokuapp.com/testworker'
 #response=requests.get(url)

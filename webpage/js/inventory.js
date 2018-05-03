@@ -128,7 +128,7 @@ function acctChange(){
     success: function (data) {
       var jidraw=JSON.parse(data);
       var jid=jidraw['jobid'];
-      var result = getReply(jid, name);
+      var result = setTimeout(function(){ getReply(jid, name); }, 10000);
     },
     error: function(jqxhr, status, exception) {
         alert('Exception:', exception);
