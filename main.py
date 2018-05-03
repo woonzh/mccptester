@@ -63,7 +63,7 @@ def updateInventories(sellerid, recon):
 def updateInventories2(sellerid, recon):
     print("seller id: "+ str(sellerid))
     skulist=MPCall.getMCCPInventories(sellerid)
-    collatedinven=IMSCall.getIMSInventory(sellerid, skulist)
+    collatedinven=IMSCall.getIMSInventory2(sellerid, skulist)
     if (recon=="true"):
         reconResult=MPCall.reconInven(sellerid, collatedinven)
         result=dataFrameToJsonConverter(reconResult)

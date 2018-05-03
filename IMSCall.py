@@ -64,12 +64,19 @@ def getOrderStatus(refnum):
     
 def getIMSInventory2(sellerid, skulist):
     getAPIKey(sellerid)
+    ls=[]
+    sync=[]
+    for i in list(range(len(skulist))):
+        ls.append("")
+        sync.append("")
+    skulist['ims qty']=ls
+    skulist['match']=sync
+        
     data = 'query { listItems(page:1, pageSize:1000) {sku quantity}}' 
     response=requests.post(url, headers=header, data=data)
     df=json.loads(response.content)
     items=df['data']['listItems']
-    sync=[]
-    ls=[]
+
     for i in items:
         imsqty=i['quantity']
         sku=i['sku']
@@ -77,16 +84,11 @@ def getIMSInventory2(sellerid, skulist):
             imssku=skulist.iloc[j,2]
             mccpqty=skulist.iloc[j,1]
             if (sku==imssku):
-                ls.append(imsqty)
-#                print(sku+ " " +str(mccpqty)+" "+str(imsqty))
+                skulist.iloc[j,3]=imsqty
                 if str(mccpqty)==str(imsqty):
-#                    print("match")
-                    sync.append("match")
+                    skulist.iloc[j,4]="match"
                 else:
-#                    print("mismatch")
-                    sync.append("mismatch")
-    skulist['ims qty']=ls
-    skulist['match']=sync
+                    skulist.iloc[j,4]="mismatch"
            
     return skulist
     
