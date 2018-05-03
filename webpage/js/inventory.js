@@ -61,31 +61,56 @@ $('.table-sync').click(function () {
   }*/
 });
 
-function getReply(jid){
+function updateTable(result,name){
+  var accts=result['result'];
+  var tableRef = document.getElementById("acctTable");
+  rowCount=2;
+  for (var i in accts){
+    var acctSet=accts[i];
+    cloneTable();
+    var x=tableRef.rows;
+    var y=x[rowCount].cells;
+    var colCount=1;
+    y[0].innerHTML = name;
+    for (var j in acctSet){
+      y[colCount].innerHTML = acctSet[j];
+      colCount=colCount+1;
+    }
+    rowCount=rowCount+1;
+    document.getElementById("loading").style.display="none";
+  }
+}
+
+function getReply(jid, name){
   url="https://mccptester.herokuapp.com/jobreport";
   var succ=false;
-  while (succ==false){}
-    $.ajax({
-      url: url,
-      type: 'GET',
-      data:{
-        jobid:"jid"
-      },
-      success: function (data) {
-        var result=json.parse(data);
-        var status=result['status'];
-        if (status=="completed"){
-
-        }else{
-
-        }
-      },
-      error: function(jqxhr, status, exception) {
-          alert('Exception:', exception);
-          document.getElementById("loading").style.display="none";
+  $.ajax({
+    url: url,
+    type: 'GET',
+    data:{
+      jobid:jid
+    },
+    success: function (data) {
+      var result=JSON.parse(data);
+      var status=result['status'];
+      if (status=="Completed"){
+        updateTable(result, name)
+        document.getElementById("loading").style.display="none";
+        return result;
+      }else if (status=="failed") {
+        alert("Failed in pulling inventory");
+        document.getElementById("loading").style.display="none";
+        return result
       }
-    });
-  }
+      else{
+        return setTimeout(function(){ getReply(jid, name); }, 3000);
+      }
+    },
+    error: function(jqxhr, status, exception) {
+        alert('Exception:', exception);
+        document.getElementById("loading").style.display="none";
+    }
+  });
 }
 
 function acctChange(){
@@ -101,26 +126,9 @@ function acctChange(){
       purpose:"data"
     },
     success: function (data) {
-      alert(data);
       var jidraw=JSON.parse(data);
       var jid=jidraw['jobid'];
-      var accts = JSON.parse(data);
-      var tableRef = document.getElementById("acctTable");
-      rowCount=2;
-      for (var i in accts){
-        var acctSet=accts[i];
-        cloneTable();
-        var x=tableRef.rows;
-        var y=x[rowCount].cells;
-        var colCount=1;
-        y[0].innerHTML = name;
-        for (var j in acctSet){
-          y[colCount].innerHTML = acctSet[j];
-          colCount=colCount+1;
-        }
-        rowCount=rowCount+1;
-      }*/
-      document.getElementById("loading").style.display="none";
+      var result = getReply(jid, name);
     },
     error: function(jqxhr, status, exception) {
         alert('Exception:', exception);

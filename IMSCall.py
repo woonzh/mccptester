@@ -78,9 +78,12 @@ def getIMSInventory2(sellerid, skulist):
             mccpqty=skulist.iloc[j,1]
             if (sku==imssku):
                 ls.append(imsqty)
+                print(sku+ " " +str(mccpqty)+" "+str(imsqty))
                 if str(mccpqty)==str(imsqty):
+                    print("match")
                     sync.append("match")
                 else:
+                    print("mismatch")
                     sync.append("mismatch")
     skulist['ims qty']=ls
     skulist['match']=sync
