@@ -61,9 +61,14 @@ def updateInventories(sellerid, recon):
         return result
     
 def updateInventories2(sellerid, recon):
+    start=time.time()
     print("seller id: "+ str(sellerid))
     skulist=MPCall.getMCCPInventories(sellerid)
+    end1 = time.time()
+    print("skulist completed: "+ str(end1-start))
     collatedinven=IMSCall.getIMSInventory2(sellerid, skulist)
+    end2 = time.time()
+    print("collated inven completed: "+ str(end2-start))
     if (recon=="true"):
         reconResult=MPCall.reconInven(sellerid, collatedinven)
         result=dataFrameToJsonConverter(reconResult)
