@@ -74,7 +74,7 @@ function getReply(jid){
       success: function (data) {
         var result=json.parse(data);
         var status=result['status'];
-        if status=="completed"{
+        if (status=="completed"){
 
         }else{
 
@@ -97,7 +97,6 @@ function acctChange(){
     url: url,
     type: 'GET',
     data:{
-      ctype:"seller",
       sellerid:acct,
       purpose:"data"
     },
@@ -105,7 +104,7 @@ function acctChange(){
       alert(data);
       var jidraw=JSON.parse(data);
       var jid=jidraw['jobid'];
-      /*var accts = JSON.parse(data);
+      var accts = JSON.parse(data);
       var tableRef = document.getElementById("acctTable");
       rowCount=2;
       for (var i in accts){
