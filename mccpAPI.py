@@ -12,6 +12,7 @@ import json
 import dbconnector as db
 import main
 import redis
+import MPCall
 from rq import Connection, get_failed_queue, Queue, get_current_job
 from rq.job import Job
 from worker import conn
@@ -86,9 +87,11 @@ class Inventory(Resource):
         result={}
         
         if (purpose=="data"):
+            timeNeeded=MPCall.getTimeNeeded(sellerid)
             job=q.enqueue(main.updateInventories2,sellerid, "false")
             print("success")
             result['jobid']=str(job.id)
+            result['time']=str(timeNeeded)
             print(result)
         else:
             if (ctype=="seller"):
