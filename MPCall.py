@@ -34,8 +34,6 @@ def getHeader():
                 }
         
         header=header2
-    
-#getHeader()
 
 def updateOrder(refNum, trNum, width, height, length, weight):
     global header
@@ -55,6 +53,7 @@ def updateOrder(refNum, trNum, width, height, length, weight):
     print(df)
     
 def updateInven(sku, qty, sellerid):
+    getHeader()
     global header
     url=mainurl+'inventory/update'
     body={

@@ -34,31 +34,61 @@ function cloneTable(){
 }
 
 $('.table-allsync').click(function () {
-  alert("still works in progress all")
-});
-
-$('.table-sync').click(function () {
-  alert("still works in progress")
-  /*document.getElementById("loading").style.display="block";
-  var x=$(this).closest("tr").find(".acctname").text();
-  var r = confirm("Confirm delete "+x+"?");
+  var r = confirm("Confirm sync inventory?");
   if (r==true){
-    url='https://shopifyorder.herokuapp.com/deleteAccount';
+    document.getElementById("loading").style.display="block";
+    var acct=document.getElementById("account").value;
+    var name=document.getElementById("account").innerHTML;
+    url="https://mccptester.herokuapp.com/inventory";
     $.ajax({
       url: url,
       type: 'GET',
-      data: {name:x},
+      data:{
+        sellerid:acct,
+        purpose:"recon",
+        ctype:"seller"
+      },
       success: function (data) {
-        alert(data);
-        location.reload();
+        var jidraw=JSON.parse(data);
+        var jid=jidraw['jobid'];
+        alert("Recon Job for this account is underway in the background. Refresh again 5 mins later.")
         document.getElementById("loading").style.display="none";
       },
-      error: function(data) {
-          alert(data);
+      error: function(jqxhr, status, exception) {
+          alert('Exception:', exception);
           document.getElementById("loading").style.display="none";
       }
     });
-  }*/
+  }
+});
+
+$('.table-sync').click(function () {
+  document.getElementById("loading").style.display="block";
+  var acct=document.getElementById("account").value;
+  var imssku=$(this).closest("tr").find(".imssku").text();
+  var mccpsku=$(this).closest("tr").find(".mccpsku").text();
+  url="https://mccptester.herokuapp.com/inventory";
+  $.ajax({
+    url: url,
+    type: 'GET',
+    data: {
+      purpose: "recon",
+      ctype:"sku",
+      mccpsku:mccpsku,
+      imssku:imssku,
+      sellerid:acct
+    },
+    success: function (data) {
+      var jidraw=JSON.parse(data);
+      //var jid=jidraw['result'];
+      print(data);
+      document.getElementById("loading").style.display="none";
+    },
+    error: function(data) {
+        alert(data);
+        document.getElementById("loading").style.display="none";
+    }
+  });
 });
 
 function updateTable(result,name){

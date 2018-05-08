@@ -92,5 +92,10 @@ def getIMSInventory2(sellerid, skulist):
            
     return skulist
     
+def getSingleIMSInventory(imssku, sellerid):
+    getAPIKey(sellerid)
+    qty=getinventory(imssku)
+    return qty
 
+#res=getSingleIMSInventory('merries3', 1)
 #print(response.content)

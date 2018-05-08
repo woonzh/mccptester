@@ -81,12 +81,13 @@ def updateInventories2(sellerid, recon):
         print(result)
         return result
 
-def updateSingularSKU(mccpsku, imssku):
-    IMSCall.getAPIKey()
-    qty=IMSCall.getSingleIMSInventory(imssku)
-    sellerid=mccpsku[:(len(mccpsku)-len(imssku)-1)]
+def updateSingularSKU(imssku, sellerid):
+    qty=IMSCall.getSingleIMSInventory(imssku, sellerid)
     result=MPCall.updateInven(imssku, qty, sellerid)
-    return result
+    retVal={
+        "result": result
+            }
+    return retVal
 
 def getAccountDetails():
     df=db.getAccountDetails()
@@ -96,5 +97,5 @@ def getAccountDetails():
 def testworker():
     print("test worker ")
 
-
+#df=updateSingularSKU("merries3",1)
 #df=updateInventories2('1', "true")

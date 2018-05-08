@@ -98,7 +98,8 @@ class Inventory(Resource):
                 job=q.enqueue(main.updateInventories2,sellerid, "true")
                 result['jobid']=str(job.id)
             else:
-                result=main.updateSingularSKU(mccpsku, imssku)
+                val=main.updateSingularSKU(imssku, sellerid)
+                result['result']=val
                 
         resp = flask.Response(json.dumps(result))
         resp.headers['Access-Control-Allow-Origin'] = '*'
