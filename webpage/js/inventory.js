@@ -34,7 +34,7 @@ function cloneTable(){
 }
 
 $('.table-allsync').click(function () {
-  alert("still works in progress")
+  alert("still works in progress all")
 });
 
 $('.table-sync').click(function () {

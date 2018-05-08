@@ -93,10 +93,7 @@ def getUncompletedDeliveries():
         ls=[shipId, tracking, status]
         result.loc[len(result)]=ls
     
-    return result
-
-contc=getUncompletedDeliveries()
-#print(contc)   
+    return result 
     
 def updateOrders(df):
     getHeader()

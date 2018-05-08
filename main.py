@@ -79,6 +79,8 @@ def updateInventories2(sellerid, recon):
         print("return collated inven")
         print(result)
         return result
+    
+result=updateInventories2(1, "true")
 
 def updateSingularSKU(mccpsku, imssku):
     IMSCall.getAPIKey()
