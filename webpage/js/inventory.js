@@ -103,7 +103,7 @@ function getReply(jid, name){
         return result
       }
       else{
-        return setTimeout(function(){ getReply(jid, name); }, 10000);
+        return setTimeout(function(){ getReply(jid, name); }, 3000);
       }
     },
     error: function(jqxhr, status, exception) {

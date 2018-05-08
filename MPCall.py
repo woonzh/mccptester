@@ -132,19 +132,12 @@ def getMCCPProductList(sellerid):
     return ls
 
 def getTimeNeeded(sellerid):
-    multiplier=1.2
-    global header
-    getHeader()
-    url=mainurl+('products?searchCriteria[filter_groups][0][filters][0][field]=seller_id&searchCriteria[filter_groups][0][filters][0][value]='+str(sellerid))
-    response=requests.get(url, headers=header)
-    df=json.loads(response.content)
-    items=df['items']
+    multiplier=1.3
+    items=getMCCPProductList(sellerid)
     itemCount=len(items)
     timeNeeded=itemCount*multiplier
     
     return timeNeeded
-
-df=getTimeNeeded(1)
     
 def getMCCPInventories(sellerid):
     result=pd.DataFrame(columns=['mccp sku','mccp qty', 'ims sku'])
