@@ -36,7 +36,8 @@ url='https://mccptester.herokuapp.com/inventory'
 
 body={
     "sellerid":"1",
-    "purpose":"data"
+    "purpose":"recon",
+    "ctype": "seller"
         }
 
 response=requests.get(url, params=body)
