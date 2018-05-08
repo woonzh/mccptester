@@ -15,24 +15,25 @@ mainurl='https://www.urbanfox.store/rest/all/V1/'
 
 def getHeader():
     global header
-    url=mainurl+'integration/admin/token'
-    
-    body={
-            "username": "ims",
-            "password": "urbanfox2018"
-            }
-    
-    response = requests.post(url, params = body)
-    
-    key = json.loads(response.content)
-    
-    header2={
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "Authorization": "Bearer "+key
-            }
-    
-    header=header2
+    if (header==None):
+        url=mainurl+'integration/admin/token'
+        
+        body={
+                "username": "ims",
+                "password": "urbanfox2018"
+                }
+        
+        response = requests.post(url, params = body)
+        
+        key = json.loads(response.content)
+        
+        header2={
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer "+key
+                }
+        
+        header=header2
     
 #getHeader()
 

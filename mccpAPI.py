@@ -32,12 +32,19 @@ CORS(app)
 class CreateAccount(Resource):
     def get(self):
         name = request.args.get("name" ,type = str, default="")
-        email = request.args.get("email" ,type = str, default="")
-        apikey=request.args.get("apikey", type=str)
-        password=request.args.get("password", type=str, default="")
-        shared=request.args.get("shared", type=str, default="")
-        query="INSERT INTO accts COLUMNS(name, email, apikey, password, shared) 
-        db.runquery(query)
+        sellerid = request.args.get("sellerid" ,type = str, default="")
+        imsapi=request.args.get("imsapi", type=str, default="")
+        tmsapi=request.args.get("tmsapi", type=str, default="")
+        query="INSERT INTO accts (acct_name, seller_id, ims_api_key, tms_api_key) VALUES(%s, %s, %s, %s)" % (name, sellerid, imsapi, tmsapi)
+        
+        result=db.runquery(query)
+        df={
+            "result": result
+                }
+        
+        resp = flask.Response(json.dumps(df))
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        return resp
 
 class AccountDetails(Resource):        
     def get(self):
