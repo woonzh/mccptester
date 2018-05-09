@@ -74,7 +74,6 @@ $('.table-sync').click(function () {
     data: {
       purpose: "recon",
       ctype:"sku",
-      mccpsku:mccpsku,
       imssku:imssku,
       sellerid:acct
     },

@@ -99,7 +99,7 @@ class Inventory(Resource):
                 result['jobid']=str(job.id)
             else:
                 val=main.updateSingularSKU(imssku, sellerid)
-                result['result']=val
+                result=val
                 
         resp = flask.Response(json.dumps(result))
         resp.headers['Access-Control-Allow-Origin'] = '*'
