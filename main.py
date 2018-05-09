@@ -85,7 +85,8 @@ def updateSingularSKU(imssku, sellerid):
     qty=IMSCall.getSingleIMSInventory(imssku, sellerid)
     result=MPCall.updateInven(imssku, qty, sellerid)
     retVal={
-        "result": result
+        "result": result,
+        "qty": qty
             }
     return retVal
 
