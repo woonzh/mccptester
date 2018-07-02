@@ -169,6 +169,7 @@ class ShopeeRedirect(Resource):
 #        shopid = request.args.get("shop_id", default="")
 #        success = request.args.get("success", default="")
 #        msg = request.args.get("extra", default="")
+        os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
         return HttpResponseRedirect("https://www.google.com")
         
 #        resp = flask.Response(json.dumps(ret))
