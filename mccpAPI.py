@@ -34,6 +34,10 @@ def getAccount():
 def directInventory():
     return render_template('inventory.html')
 
+@app.route('/shopee')
+def shopee():
+    return render_template('shopee.html')
+
 class CreateAccount(Resource):
     def get(self):
         name = request.args.get("name" ,type = str, default="")
@@ -147,6 +151,17 @@ class GetJobReport(Resource):
         resp.headers['Access-Control-Allow-Origin'] = '*'
         print("header success")
         return resp
+    
+class ShopeeURL(Resource):
+    def get(self):
+        ret={
+            "url":"www.google.com"
+                }
+        
+        resp = flask.Response(json.dumps(ret))
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        print("header success")
+        return resp
 
 api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')
@@ -155,6 +170,7 @@ api.add_resource(Testworker, '/testworker')
 api.add_resource(Failedworkers, '/failedworkers')
 api.add_resource(GetJobReport, '/jobreport')
 api.add_resource(CreateAccount, '/createaccount')
+api.add_resource(ShopeeURL, '/shopeeURL')
 
 #test=Accounts
 #res=test.get('')
