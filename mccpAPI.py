@@ -22,13 +22,13 @@ app = Flask(__name__)
 api = Api(app)
 CORS(app)
 
-#@app.route('/')
-#def hello():
-#    return render_template('home.html')
-#
-#@app.route('/account')
-#def account():
-#    return render_template('account.html')
+@app.route('/')
+def hello():
+    return render_template('home.html')
+
+@app.route('/account')
+def account():
+    return render_template('account.html')
 
 class CreateAccount(Resource):
     def get(self):
