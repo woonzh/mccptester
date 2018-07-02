@@ -1,7 +1,7 @@
 function onload(){
-    document.getElementById("loading").style.display="none";
-    var shopid= "<?php echo 'ttt' ?>";
+    var shopid= window.location.search;
     alert(shopid)
+    document.getElementById("loading").style.display="none";
 }
 
 function shopeeRedirect(){
