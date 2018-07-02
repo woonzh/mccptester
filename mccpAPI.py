@@ -19,6 +19,7 @@ from rq.job import Job
 from worker import conn
 import os
 import requests
+from django.http import HttpResponseRedirect
 
 app = Flask(__name__)
 api = Api(app)
@@ -168,8 +169,7 @@ class ShopeeRedirect(Resource):
 #        shopid = request.args.get("shop_id", default="")
 #        success = request.args.get("success", default="")
 #        msg = request.args.get("extra", default="")
-        
-        r = requests.get("https://www.google.com", allow_redirects=True)
+        return HttpResponseRedirect("https://www.google.com")
         
 #        resp = flask.Response(json.dumps(ret))
 #        resp.headers['Access-Control-Allow-Origin'] = '*'

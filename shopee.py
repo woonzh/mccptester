@@ -6,6 +6,7 @@ Created on Mon Jul  2 10:19:02 2018
 """
 from hashlib import sha256
 from hmac import HMAC
+from django.http import HttpResponseRedirect
 
 baseurl="https://partner.shopeemobile.com/api/v1/shop/auth_partner?"
 
@@ -25,4 +26,4 @@ def extractUrl():
             }
     return data
 
-df=extractUrl()
+#df=extractUrl()
