@@ -165,15 +165,15 @@ class ShopeeURL(Resource):
     
 class ShopeeRedirect(Resource):
     def get(self):
-        shopid = request.args.get("shop_id", default="")
-        success = request.args.get("success", default="")
-        msg = request.args.get("extra", default="")
+#        shopid = request.args.get("shop_id", default="")
+#        success = request.args.get("success", default="")
+#        msg = request.args.get("extra", default="")
         
         r = requests.get("https://www.google.com")
         
-        resp = flask.Response(json.dumps(ret))
-        resp.headers['Access-Control-Allow-Origin'] = '*'
-        print("header success")
+#        resp = flask.Response(json.dumps(ret))
+#        resp.headers['Access-Control-Allow-Origin'] = '*'
+#        print("header success")
         return r
 
 api.add_resource(AccountDetails, '/accountdetails')
