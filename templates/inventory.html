@@ -16,7 +16,7 @@
     <link rel='stylesheet prefetch' href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
 
     <!-- Custom styles for this template -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/simple-sidebar.css')}}" rel="stylesheet">
 
 </head>
 
@@ -29,21 +29,21 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="index.html">
+                    <a href="index">
                         Main Page
                     </a>
                 </li>
                 <li>
-                    <a href="accounts.html">Accounts</a>
+                    <a href="accounts">Accounts</a>
                 </li>
                 <li>
-                    <a href="inventory.html">Inventory</a>
+                    <a href="inventory">Inventory</a>
                 </li>
                 <li>
-                    <a href="orders.html">Orders</a>
+                    <a href="orders">Orders</a>
                 </li>
                 <li>
-                    <a href="delivery.html">Delivery</a>
+                    <a href="delivery">Delivery</a>
                 </li>
             </ul>
         </div>
@@ -98,9 +98,9 @@
     <!-- /#wrapper -->
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="js/inventory.js"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/inventory.js')}}"></script>
 
     <!-- Menu Toggle Script -->
     <script>
