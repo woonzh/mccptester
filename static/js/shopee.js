@@ -1,6 +1,6 @@
 function onload(){
     document.getElementById("loading").style.display="none";
-    var id= <?php echo $_GET['shopid'] ?>
+    var shopid= "<?php echo $_GET['shopid'] ?>";
     alert(shopid)
 }
 
