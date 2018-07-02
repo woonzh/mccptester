@@ -5,7 +5,7 @@ Created on Sat Mar 24 17:34:54 2018
 @author: woon.zhenhao
 """
 import flask
-from flask import Flask, request, make_response, render_template
+from flask import Flask, request, make_response, render_template, redirect
 from flask_cors import CORS
 from flask_restful import Resource, Api
 import json
@@ -18,7 +18,6 @@ from rq import Connection, get_failed_queue, Queue, get_current_job
 from rq.job import Job
 from worker import conn
 import os
-from django.http import HttpResponseRedirect
 
 app = Flask(__name__)
 api = Api(app)
@@ -169,7 +168,7 @@ class ShopeeRedirect(Resource):
 #        success = request.args.get("success", default="")
 #        msg = request.args.get("extra", default="")
 #        os.environ['DJANGO_SETTINGS_MODULE'] = 'mccp.settings'
-        return HttpResponseRedirect("https://www.google.com")
+        return redirect("https://www.google.com", code=302)
         
 #        resp = flask.Response(json.dumps(ret))
 #        resp.headers['Access-Control-Allow-Origin'] = '*'
