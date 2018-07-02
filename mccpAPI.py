@@ -37,7 +37,7 @@ def directInventory():
 
 @app.route('/shopee')
 def shopee():
-    return render_template('shopee.html')
+    return render_template('shopee.php')
 
 class CreateAccount(Resource):
     def get(self):
