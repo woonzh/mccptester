@@ -60,8 +60,8 @@
                 <p>Generate Shopee Authentication URL here</code>.</p>
                 <p><b>Click on the URL, log in and retrieve the shopid</b></p>
             </div>
-            <?php echo 't'; ?>
-            <p> Shop ID: <?php echo 't'; ?></p>
+            <?php echo "ttt"; ?>
+            <p> Shop ID: <?php echo "ttt"; ?></p>
             <form action="#" id="shopee">
               <input type="button" id="shopee" class="submit" value="submit" onclick="shopeeRedirect();">
             </form>
