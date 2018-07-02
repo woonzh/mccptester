@@ -169,7 +169,7 @@ class ShopeeRedirect(Resource):
         success = request.args.get("success", default="")
         msg = request.args.get("extra", default="")
         
-        r = requests.get("www.google.com")
+        r = requests.get("https://www.google.com")
         
         resp = flask.Response(json.dumps(ret))
         resp.headers['Access-Control-Allow-Origin'] = '*'
