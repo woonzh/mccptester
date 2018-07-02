@@ -168,7 +168,7 @@ class ShopeeRedirect(Resource):
 #        success = request.args.get("success", default="")
 #        msg = request.args.get("extra", default="")
         
-        return redirect("https://mccptester.herokuapp.com/shopeeredirect?shopid=3456", code=302)
+        return redirect("https://mccptester.herokuapp.com/shopee?shopid=3456", code=302)
 
 api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')
