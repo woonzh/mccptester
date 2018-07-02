@@ -79,9 +79,10 @@
     <script src="{{ url_for('static', filename='js/shopee.js')}}"></script>
 
     <script>
-      var shopid= window.location.href;
+      var url= window.location.href;
+      var shopid=((url.split("?")[1]).split("&")[0]).split("=")[1];
       var item=document.getElementById("shopid");
-      item.innerHTML=shopid;
+      item.innerHTML="Shop id: "+ str(shopid);
       alert(shopid);
     </script>
 
