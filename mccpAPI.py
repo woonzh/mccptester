@@ -24,11 +24,15 @@ CORS(app)
 
 @app.route('/')
 def hello():
-    return render_template('home.html')
+    return render_template('index.html')
 
-@app.route('/account')
-def account():
-    return render_template('account.html')
+@app.route('/accounts')
+def getAccount():
+    return render_template('accounts.html')
+
+@app.route('/inventory')
+def directInventory():
+    return render_template('inventory.html')
 
 class CreateAccount(Resource):
     def get(self):
