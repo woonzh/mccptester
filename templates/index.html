@@ -13,10 +13,10 @@
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">-->
-    <link rel='stylesheet prefetch' href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
+    <link rel="stylesheet prefetch" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
 
     <!-- Custom styles for this template -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/simple-sidebar.css')}}" rel="stylesheet">
 
 </head>
 
@@ -40,10 +40,10 @@
                     <a href="inventory.html">Inventory</a>
                 </li>
                 <li>
-                    <a href="orders.html">Orders</a>
+                    <a href="">Orders</a>
                 </li>
                 <li>
-                    <a href="delivery.html">Delivery</a>
+                    <a href="">Delivery</a>
                 </li>
             </ul>
         </div>
@@ -57,9 +57,6 @@
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle"><b>Toggle Menu</b></a>
                 <h1>Main Page</h1>
                 <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-                <iframe width="560" height="315"
-                  src="https://www.youtube.com/embed/YJN6zIRYWD4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-                </iframe>
             </div>
 
         </div>
@@ -69,8 +66,8 @@
     <!-- /#wrapper -->
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
     <!-- Menu Toggle Script -->
     <script>
