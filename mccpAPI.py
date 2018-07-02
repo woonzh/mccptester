@@ -13,10 +13,12 @@ import dbconnector as db
 import main
 import redis
 import MPCall
+import shopee
 from rq import Connection, get_failed_queue, Queue, get_current_job
 from rq.job import Job
 from worker import conn
 import os
+import requests
 
 app = Flask(__name__)
 api = Api(app)
@@ -154,14 +156,25 @@ class GetJobReport(Resource):
     
 class ShopeeURL(Resource):
     def get(self):
-        ret={
-            "url":"www.google.com"
-                }
+        ret=shopee.extractUrl()
         
         resp = flask.Response(json.dumps(ret))
         resp.headers['Access-Control-Allow-Origin'] = '*'
         print("header success")
         return resp
+    
+class ShopeeRedirect(Resource):
+    def get(self):
+        shopid = request.args.get("shop_id", default="")
+        success = request.args.get("success", default="")
+        msg = request.args.get("extra", default="")
+        
+        r = requests.get("www.google.com")
+        
+        resp = flask.Response(json.dumps(ret))
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        print("header success")
+        return r
 
 api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')
@@ -171,6 +184,7 @@ api.add_resource(Failedworkers, '/failedworkers')
 api.add_resource(GetJobReport, '/jobreport')
 api.add_resource(CreateAccount, '/createaccount')
 api.add_resource(ShopeeURL, '/shopeeURL')
+api.add_resource(ShopeeRedirect, '/shopeeredirect')
 
 #test=Accounts
 #res=test.get('')
