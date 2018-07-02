@@ -167,13 +167,8 @@ class ShopeeRedirect(Resource):
 #        shopid = request.args.get("shop_id", default="")
 #        success = request.args.get("success", default="")
 #        msg = request.args.get("extra", default="")
-#        os.environ['DJANGO_SETTINGS_MODULE'] = 'mccp.settings'
-        return redirect("https://www.google.com", code=302)
         
-#        resp = flask.Response(json.dumps(ret))
-#        resp.headers['Access-Control-Allow-Origin'] = '*'
-#        print("header success")
-#        return r
+        return redirect("https://www.google.com", code=302)
 
 api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')
