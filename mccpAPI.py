@@ -20,6 +20,7 @@ from worker import conn
 import os
 import requests
 from django.http import HttpResponseRedirect
+from django.conf import settings
 
 app = Flask(__name__)
 api = Api(app)
@@ -169,7 +170,7 @@ class ShopeeRedirect(Resource):
 #        shopid = request.args.get("shop_id", default="")
 #        success = request.args.get("success", default="")
 #        msg = request.args.get("extra", default="")
-        os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+        os.environ['DJANGO_SETTINGS_MODULE'] = 'mccp.settings'
         return HttpResponseRedirect("https://www.google.com")
         
 #        resp = flask.Response(json.dumps(ret))
