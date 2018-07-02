@@ -174,7 +174,7 @@ class ShopeeRedirect(Resource):
 #        resp = flask.Response(json.dumps(ret))
 #        resp.headers['Access-Control-Allow-Origin'] = '*'
 #        print("header success")
-        return r
+#        return r
 
 api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')
