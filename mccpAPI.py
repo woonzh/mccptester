@@ -19,7 +19,6 @@ from rq.job import Job
 from worker import conn
 import os
 from django.http import HttpResponseRedirect
-import django_heroku
 
 app = Flask(__name__)
 api = Api(app)
