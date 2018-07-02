@@ -66,7 +66,8 @@ $('.table-sync').click(function () {
   document.getElementById("loading").style.display="block";
   var acct=document.getElementById("account").value;
   var imssku=$(this).closest("tr").find(".imssku").text();
-  var mccpsku=$(this).closest("tr").find(".mccpsku").text();
+  var imsinven=$(this).closest("tr").find(".imsinven");
+  var mccpinven=$(this).closest("tr").find(".mccpinven");
   url="https://mccptester.herokuapp.com/inventory";
   $.ajax({
     url: url,
@@ -79,8 +80,10 @@ $('.table-sync').click(function () {
     },
     success: function (data) {
       var jidraw=JSON.parse(data);
-      //var jid=jidraw['result'];
-      print(data);
+      var result=jidraw['result'];
+      var qty=jidraw['qty'];
+      imsinven.html(qty);
+      mccpinven.html(qty)
       document.getElementById("loading").style.display="none";
     },
     error: function(data) {
