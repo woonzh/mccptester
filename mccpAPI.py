@@ -18,9 +18,7 @@ from rq import Connection, get_failed_queue, Queue, get_current_job
 from rq.job import Job
 from worker import conn
 import os
-import requests
 from django.http import HttpResponseRedirect
-from django.conf import settings
 
 app = Flask(__name__)
 api = Api(app)
