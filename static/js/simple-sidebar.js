@@ -48,14 +48,14 @@ function createAccount(e){
 }
 
 function onload(){
-  url="https://shopifyorder.herokuapp.com/accountDetails"
+  url="https://mccptester.herokuapp.com/accountdetails"
   $.ajax({
     url: url,
     type: 'GET',
     success: function (data) {
       var accts = JSON.parse(data);
       var tableRef = document.getElementById("acctTable");
-      rowCount=1;
+      rowCount=2;
       for (var i in accts){
         var acctSet=accts[i];
         cloneTable();
@@ -68,9 +68,6 @@ function onload(){
         }
         rowCount=rowCount+1;
       }
-      var x=tableRef.rows;
-      var y=x[1].cells;
-      y[0].innerHTML="Test";
       document.getElementById("loading").style.display="none";
     },
     error: function(jqxhr, status, exception) {
@@ -85,13 +82,9 @@ function cloneTable(){
   $TABLE.find('table').append($clone);
 }
 
-$('.table-add').click(function () {
-  var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
-  $TABLE.find('table').append($clone);
-});
-
 $('.table-up').click(function(){
-  document.getElementById("loading").style.display="block";
+  alert("still works in progress")
+  /*document.getElementById("loading").style.display="block";
   var email=$(this).closest("tr").find(".email").text();
   var name=$(this).closest("tr").find(".acctname").text();
   var api=$(this).closest("tr").find(".api").text();
@@ -117,11 +110,12 @@ $('.table-up').click(function(){
         alert(data);
         document.getElementById("loading").style.display="none";
     }
-  });
+  });*/
 });
 
 $('.table-remove').click(function () {
-  document.getElementById("loading").style.display="block";
+  alert("still works in progress")
+  /*document.getElementById("loading").style.display="block";
   var x=$(this).closest("tr").find(".acctname").text();
   var r = confirm("Confirm delete "+x+"?");
   if (r==true){
@@ -140,18 +134,7 @@ $('.table-remove').click(function () {
           document.getElementById("loading").style.display="none";
       }
     });
-  }
-});
-
-$('.table-up').click(function () {
-  var $row = $(this).parents('tr');
-  if ($row.index() === 1) return; // Don't go above the header
-  $row.prev().before($row.get(0));
-});
-
-$('.table-down').click(function () {
-  var $row = $(this).parents('tr');
-  $row.next().after($row.get(0));
+  }*/
 });
 
 // A few jQuery helpers for exporting only
