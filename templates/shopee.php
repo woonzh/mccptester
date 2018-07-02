@@ -73,7 +73,7 @@
 
     </div>
     <!-- /#wrapper -->
-
+    <?php echo "ttt"; ?>
     <!-- Bootstrap core JavaScript -->
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
