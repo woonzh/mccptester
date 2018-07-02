@@ -1,6 +1,6 @@
 function onload(){
     var shopid= window.location.search;
-    alert(shopid)
+    alert(shopid);
     document.getElementById("loading").style.display="none";
 }
 
