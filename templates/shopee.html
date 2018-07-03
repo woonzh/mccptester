@@ -80,8 +80,13 @@
 
     <script>
       var url= window.location.href;
-      var shopid=url.split("?")[1];
-      var shopid=shopid.split("=")[1];
+
+      var shopid=url.split("?");
+      if (shopid.length > 1){
+        shopid=(shopid[1]).split("=")[1];
+      }else{
+        shopid="Please Click the submit Button for authentication first."
+      }
       var item=document.getElementById("shopid");
       item.innerHTML="<b>Shop id: </b>"+ shopid.toString();
       alert(shopid);
