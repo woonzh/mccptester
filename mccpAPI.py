@@ -182,7 +182,7 @@ api.add_resource(Testworker, '/testworker')
 api.add_resource(Failedworkers, '/failedworkers')
 api.add_resource(GetJobReport, '/jobreport')
 api.add_resource(CreateAccount, '/createaccount')
-api.add_resource(ShopeeURL, '/shopeeURL')
+api.add_resource(ShopeeURL, '/shopeeurl')
 api.add_resource(ShopeeRedirect, '/shopeeredirect')
 
 #test=Accounts

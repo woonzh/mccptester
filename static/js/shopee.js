@@ -3,7 +3,7 @@ function onload(){
 }
 
 function shopeeRedirect(){
-    url="https://mccptester.herokuapp.com/shopeeURL";
+    url="https://mccptester.herokuapp.com/shopeeurl";
     $.ajax({
       url: url,
       type: 'GET',
