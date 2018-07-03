@@ -13,7 +13,7 @@ import dbconnector as db
 import main
 import redis
 import MPCall
-import shopee
+import shopee as sh
 from rq import Connection, get_failed_queue, Queue, get_current_job
 from rq.job import Job
 from worker import conn
@@ -155,7 +155,7 @@ class GetJobReport(Resource):
     
 class ShopeeURL(Resource):
     def get(self):
-        ret=shopee.extractUrl()
+        ret=sh.extractUrl()
         
         resp = flask.Response(json.dumps(ret))
         resp.headers['Access-Control-Allow-Origin'] = '*'

@@ -21,6 +21,7 @@ sig=""
 
 def extractUrl():
     url="%sid=%s&token=%s&redirect=%s" % (baseurl, pkey, sig, redirect)
+    url="https://www.google.com"
     data={
         "url": url
             }
