@@ -165,7 +165,7 @@ class ShopeeURL(Resource):
 class ShopeeRedirect(Resource):
     def get(self):
         shopid = request.args.get("shop_id", default="")
-        success = request.args.get("success", default="")
+        success = request.args.get("success", default=1)
         msg = request.args.get("extra", default="")
         
         if success==1:
@@ -174,7 +174,7 @@ class ShopeeRedirect(Resource):
             shopid="Failed to retrieve. "+ str(msg)
             
         url="https://mccptester.herokuapp.com/shopee?shopid=%s" % (shopid)
-        print(url)
+        print("url: " + url)
         
         return redirect(url, code=302)
 
