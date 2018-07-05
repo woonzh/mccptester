@@ -172,8 +172,11 @@ class ShopeeRedirect(Resource):
             shopid=str(shopid)
         else:
             shopid="Failed to retrieve. "+ str(msg)
+            
+        url="https://mccptester.herokuapp.com/shopee?shopid=%s" % (shopid)
+        print(url)
         
-        return redirect("https://mccptester.herokuapp.com/shopee?shopid=%s" % (shopid), code=302)
+        return redirect(url, code=302)
 
 api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')

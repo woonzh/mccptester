@@ -9,9 +9,9 @@ function shopeeRedirect(){
       type: 'GET',
       success: function (data) {
         var jidraw=JSON.parse(data);
-        var jid=jidraw['url'];
+        var url=jidraw['url'];
         if (confirm('You will be redirected to Shopee for authentication.')) {
-            window.location.href = "https://www.google.com";
+            window.location.href = url;
         }
         document.getElementById("loading").style.display="none";
       },
