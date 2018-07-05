@@ -5,26 +5,21 @@ Created on Mon Jul  2 10:19:02 2018
 @author: woon.zhenhao
 """
 from hashlib import sha256
-from hmac import HMAC
-from django.http import HttpResponseRedirect
 
 baseurl="https://partner.shopeemobile.com/api/v1/shop/auth_partner?"
 
-pkey=''
-redirect="https://mccptester.herokuapp.com/shopeeauth"
+pid='840212'
+key='f752aa31ca70b8c87e59d52f6a083e3c53a72e606ff951f6ecae800d0653e576'
+redirect="https://mccptester.herokuapp.com/shopeeredirect"
 
-baseString=pkey+redirect
-#sig=HMAC(bytearray(Secret,'ASCII'), bytearray(baseString, 'ASCII'), sha256).hexdigest()
-#sig=HMAC(bytearray(baseString, 'ASCII'), sha256).hexdigest()
-sig=""
-
+baseString=key+redirect
+token=sha256(baseString.encode('ascii')).hexdigest()
 
 def extractUrl():
-    url="%sid=%s&token=%s&redirect=%s" % (baseurl, pkey, sig, redirect)
-    url="https://www.google.com"
+    url="%sid=%s&token=%s&redirect=%s" % (baseurl, pid, token, redirect)
     data={
         "url": url
             }
     return data
 
-#df=extractUrl()
+df=extractUrl()
