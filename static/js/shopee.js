@@ -20,5 +20,4 @@ function shopeeRedirect(){
           document.getElementById("loading").style.display="none";
       }
     });
-    alert("testing");
 }
