@@ -182,7 +182,7 @@ class ShopeeRedirect(Resource):
         
         return redirect(url, code=302)
     
-class DeliveryCheck():
+class DeliveryCheck(Resource):
     def get(self):
         increment_id = request.args.get("increment_id", default="")
         df=MPCall.getShipments(str(increment_id))
