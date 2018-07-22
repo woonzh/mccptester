@@ -40,7 +40,7 @@ def shopee():
     return render_template('shopee.html')
 
 @app.route('/delivery')
-def shopee():
+def delivery():
     return render_template('delivery.html')
 
 class CreateAccount(Resource):
