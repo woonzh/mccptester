@@ -2,13 +2,19 @@ function onload(){
     document.getElementById("loading").style.display="none";
 }
 
-function cloneTable(count, items, type, track, status, create, deliver, address){
+function cloneTable(count, items, type, track, status, create, deliver, address, url){
   var div = document.getElementById('duplicate');
   var clone = div.cloneNode(true);
   clone.classList.remove("hide");
   clone.classList.add("delete");
 
   var but = clone.getElementsByTagName("button")[0];
+  if (type="UF deliver"){
+    but.setAttribute('onclick',url);
+  }else{
+    but.setAttribute('onclick','');
+    but.innerHTML="No tracking";
+  }
 
   var divc = clone.getElementsByTagName("div")[0];
 
@@ -53,25 +59,40 @@ function getShipments(){
       increment_id:orderno
       },
     success: function (data) {
-      var shipments = JSON.parse(data);
-      for (var i in shipments){
-        if (i=="summary"){
-          var summary=shipments[i];
-          $("#info").innerHTML=summary;
-        }else{
-          var ship=shipments[i];
-          var items=ship['items'];
-          var type = ship['shipType'];
-          var track = ship['tracking'];
-          var info=ship['info'];
-          var status=ship['activity'];
-          var create=ship['create_date'];
-          var deliver=ship['delivr_date'];
-          var address=ship['dst_addr'];
-          cloneTable(count, items, type, track, status, create, deliver, address);
-          count+=1;
+      var df = JSON.parse(data);
+
+      var summary=df["summary"];
+      document.getElementById("info").innerHTML="<b>"+summary+"</b>";
+
+      var outstanding=df["outstanding items"];
+      document.getElementById("oustanding").innerHTML="<b>"+"outstanding items :"+"</b>"+outstanding;
+
+      var count=df["count"];
+
+      if (count >0){
+        var shipments=df["shipments"];
+        for (var i in shipments){
+          if (i=="summary"){
+            var summary=shipments[i];
+            document.getElementById("info").innerHTML="<b>"+summary+"</b>";
+          }else{
+            var ship=shipments[i];
+            var items=ship['items'];
+            var type = ship['shipType'];
+            var track = ship['tracking'];
+            var url="https://www.urbanfox.asia/courier-tracking/tracking/?tracking_number="+track;
+            var urlFunc="window.open('"+url+"')";
+            var info=ship['info'];
+            var status=ship['activity'];
+            var create=ship['create_date'];
+            var deliver=ship['delivr_date'];
+            var address=ship['dst_addr'];
+            cloneTable(count, items, type, track, status, create, deliver, address, urlFunc);
+            count+=1;
+          }
         }
       }
+
       document.getElementById("loading").style.display="none";
     },
     error: function(data) {

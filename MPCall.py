@@ -178,23 +178,11 @@ def getOrders(increment_id):
     
     return df
 
-def getShipments(increment_id):
-    getHeader()
-    global header
-    
-    if len(increment_id)<9:
-        increment_id=('0'*(9-len(increment_id)))+increment_id
-                     
-    
-#    url=mainurl+'shipments?searchCriteria[filter_groups][0][filters][0][field]=increment_id&searchCriteria[filter_groups][0][filters][0][value]='+increment_id
-    url=mainurl+'shipments?searchCriteria[pageSize]=10&searchCriteria[currentPage]=1'
-    response=requests.get(url, headers = header)
-    
-    df=json.loads(response.content)
-    
+def parseShipments(df, skuLst):
     shipments=df['items']
     
     store={}
+    shipments={}
     count=0
     
     for ship in shipments:
@@ -214,9 +202,11 @@ def getShipments(increment_id):
         items=ship['items']
         itmLst=''
         for item in items:
+            itId=skuLst.index(item)
+            skuLst=skuLst.pop(itId)
             itmLst+=" / "+item['name']
         
-        store[count]={
+        shipments[count]={
             "tracking":tn,
             "shipType":shipType,
             "items":itmLst,
@@ -231,8 +221,40 @@ def getShipments(increment_id):
         summary= str(count) + " shipments have been found for this order."
         
     store["summary"]=summary
+    store["outstanding items"]=str(skuLst)
+    store["count"]=count
+    store["shipments"]=shipments
+         
+    return store
+
+def getOrderSKUs(orderNo):
+    df=getOrders(orderNo)['items'][0]['items']
+    skuLst=[]
+    for i in df:
+        sku=i['sku']
+        skuLst.append(sku)
+        
+    return skuLst
+
+def getShipments(increment_id):
+    getHeader()
+    global header
+    
+    if len(increment_id)<9:
+        increment_id=('0'*(9-len(increment_id)))+increment_id
+                     
+    skuLst=getOrderSKUs(increment_id)
+    
+    url=mainurl+'shipments?searchCriteria[filter_groups][0][filters][0][field]=increment_id&searchCriteria[filter_groups][0][filters][0][value]='+increment_id
+#    url=mainurl+'shipments?searchCriteria[pageSize]=10&searchCriteria[currentPage]=1'
+    response=requests.get(url, headers = header)
+    
+    df=json.loads(response.content)
+    
+    store=parseShipments(df, skuLst)
         
     return store
 
-df=getShipments('256')
-#df=getOrders('LZDA000000766')
+#df=getShipments('835')
+#df=getOrders('835')
+#sku=getOrderSKUs('835')
