@@ -214,7 +214,7 @@ def getShipments(increment_id):
         items=ship['items']
         itmLst=''
         for item in items:
-            itmLst+="/"+item['name']
+            itmLst+=" / "+item['name']
         
         store[count]={
             "tracking":tn,
@@ -225,7 +225,14 @@ def getShipments(increment_id):
     
         count+=1
         
+    if count==0:
+        summary= "no shipment has been found for this order."
+    else:
+        summary= str(count) + " shipments have been found for this order."
+        
+    store["summary"]=summary
+        
     return store
 
-#df=getShipments('256')
+df=getShipments('256')
 #df=getOrders('LZDA000000766')

@@ -20,6 +20,8 @@ def getStatus(track):
     data = 'query _ { my_transaction_info(ref_no: "%s") {ref_no external_track_no create_date delivr_date pickup_date dst_addr dst_postcode activity} }' % (track)
     response=requests.post(url, headers=header, data=data)
     df=json.loads(response.content)
+    df=df['data']['my_transaction_info']
+    
            
     return df
 
