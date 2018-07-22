@@ -65,7 +65,7 @@ function getShipments(){
       document.getElementById("info").innerHTML="<b>"+summary+"</b>";
 
       var outstanding=df["outstanding items"];
-      document.getElementById("oustanding").innerHTML="<b>"+"outstanding items :"+"</b>"+outstanding;
+      document.getElementById("outstanding").innerHTML=("<b>"+"outstanding items: "+"</b>"+outstanding);
 
       var count=df["count"];
 
