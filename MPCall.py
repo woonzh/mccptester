@@ -245,8 +245,8 @@ def getShipments(increment_id):
                      
     skuLst=getOrderSKUs(increment_id)
     
-    url=mainurl+'shipments?searchCriteria[filter_groups][0][filters][0][field]=increment_id&searchCriteria[filter_groups][0][filters][0][value]='+increment_id
-#    url=mainurl+'shipments?searchCriteria[pageSize]=10&searchCriteria[currentPage]=1'
+#    url=mainurl+'shipments?searchCriteria[filter_groups][0][filters][0][field]=increment_id&searchCriteria[filter_groups][0][filters][0][value]='+increment_id
+    url=mainurl+'shipments?searchCriteria[pageSize]=10&searchCriteria[currentPage]=1'
     response=requests.get(url, headers = header)
     
     df=json.loads(response.content)
