@@ -32,13 +32,10 @@ import json
 #    except Exception as ex:
 #        return ex
     
-url='https://mccptester.herokuapp.com/inventory'
+url='https://mccptester.herokuapp.com/deliverycheck'
 
 body={
-    "sellerid":"1",
-    "purpose":"recon",
-    "ctype": "sku",
-    "imssku": "merries3"
+    "increment_id":"256"
         }
 
 response=requests.get(url, params=body)

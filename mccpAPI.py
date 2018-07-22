@@ -185,7 +185,7 @@ class ShopeeRedirect(Resource):
 class DeliveryCheck():
     def get(self):
         increment_id = request.args.get("increment_id", default="")
-        df=MPCall.getShipments(increment_id)
+        df=MPCall.getShipments(str(increment_id))
         
         resp = flask.Response(json.dumps(df))
         resp.headers['Access-Control-Allow-Origin'] = '*'
