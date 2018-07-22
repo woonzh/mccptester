@@ -39,6 +39,10 @@ def directInventory():
 def shopee():
     return render_template('shopee.html')
 
+@app.route('/delivery')
+def shopee():
+    return render_template('delivery.html')
+
 class CreateAccount(Resource):
     def get(self):
         name = request.args.get("name" ,type = str, default="")
@@ -177,6 +181,16 @@ class ShopeeRedirect(Resource):
         print("url: " + url)
         
         return redirect(url, code=302)
+    
+class DeliveryCheck():
+    def get(self):
+        increment_id = request.args.get("increment_id", default="")
+        df=MPCall.getShipments(increment_id)
+        
+        resp = flask.Response(json.dumps(df))
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        print("delivery check success")
+        return resp
 
 api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')
@@ -187,6 +201,7 @@ api.add_resource(GetJobReport, '/jobreport')
 api.add_resource(CreateAccount, '/createaccount')
 api.add_resource(ShopeeURL, '/shopeeurl')
 api.add_resource(ShopeeRedirect, '/shopeeredirect')
+api.add_resource(DeliveryCheck, '/deliverycheck')
 
 #test=Accounts
 #res=test.get('')

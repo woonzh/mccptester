@@ -8,6 +8,7 @@ Created on Mon Mar 12 16:40:15 2018
 import requests
 import json
 import pandas as pd
+import TMSCall as tc
 
 header=None
 
@@ -161,3 +162,70 @@ def reconInven(sellerid, invenlist):
     invenlist['recon result']=result
     
     return invenlist
+
+def getOrders(increment_id):
+    getHeader()
+    global header
+    
+    if len(increment_id)<9:
+        increment_id=('0'*(9-len(increment_id)))+increment_id
+    
+    url=mainurl+'orders?searchCriteria[filter_groups][0][filters][0][field]=increment_id&searchCriteria[filter_groups][0][filters][0][value]='+increment_id
+#    url=mainurl+'orders?searchCriteria[pageSize]=100&searchCriteria[currentPage]=4'
+    response=requests.get(url, headers = header)
+    
+    df=json.loads(response.content)
+    
+    return df
+
+def getShipments(increment_id):
+    getHeader()
+    global header
+    
+    if len(increment_id)<9:
+        increment_id=('0'*(9-len(increment_id)))+increment_id
+                     
+    
+#    url=mainurl+'shipments?searchCriteria[filter_groups][0][filters][0][field]=increment_id&searchCriteria[filter_groups][0][filters][0][value]='+increment_id
+    url=mainurl+'shipments?searchCriteria[pageSize]=10&searchCriteria[currentPage]=1'
+    response=requests.get(url, headers = header)
+    
+    df=json.loads(response.content)
+    
+    shipments=df['items']
+    
+    store={}
+    count=0
+    
+    for ship in shipments:
+        try:
+            tn=ship['shipping_label']
+            if tn[0:2]=='OL' or tn[0:2]=='ML':
+                shipType='UF deliver'
+                info=tc.getStatus('ML1493688')
+            else:
+                shipType='self deliver'
+                info={}
+        except:
+            tn="Nil"
+            shipType='self deliver'
+            info={}
+        
+        items=ship['items']
+        itmLst=''
+        for item in items:
+            itmLst+="/"+item['name']
+        
+        store[count]={
+            "tracking":tn,
+            "shipType":shipType,
+            "items":itmLst,
+            "info":info
+                }
+    
+        count+=1
+        
+    return store
+
+#df=getShipments('256')
+#df=getOrders('LZDA000000766')
