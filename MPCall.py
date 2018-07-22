@@ -182,7 +182,7 @@ def parseShipments(df, skuLst):
     shipments=df['items']
     
     store={}
-    shipments={}
+    shipStore={}
     count=0
     
     for ship in shipments:
@@ -202,11 +202,15 @@ def parseShipments(df, skuLst):
         items=ship['items']
         itmLst=''
         for item in items:
-            itId=skuLst.index(item)
-            skuLst=skuLst.pop(itId)
-            itmLst+=" / "+item['name']
+            name=item['name']
+            try:
+                itId=skuLst.index(name)
+                skuLst=skuLst.pop(itId)
+            except:
+                t=1
+            itmLst+=" / "+name
         
-        shipments[count]={
+        shipStore[count]={
             "tracking":tn,
             "shipType":shipType,
             "items":itmLst,
@@ -223,7 +227,7 @@ def parseShipments(df, skuLst):
     store["summary"]=summary
     store["outstanding items"]=str(skuLst)
     store["count"]=count
-    store["shipments"]=shipments
+    store["shipments"]=shipStore
          
     return store
 
@@ -255,6 +259,6 @@ def getShipments(increment_id):
         
     return store
 
-#df=getShipments('835')
+df=getShipments('256')
 #df=getOrders('835')
 #sku=getOrderSKUs('835')
