@@ -22,3 +22,25 @@ $('.clone').click(function () {
   alert("clicked");
   cloneTable(1);
 });
+
+function getShipments(){
+  document.getElementById("loading").style.display="block";
+  var orderno=document.getElementById("orderno").value;
+  alert(orderno);
+  url='https://mccptester.herokuapp.com/deliverycheck';
+  $.ajax({
+    url: url,
+    type: 'GET',
+    data: {
+      increment_id:orderno
+      },
+    success: function (data) {
+      alert(data);
+      document.getElementById("loading").style.display="none";
+    },
+    error: function(data) {
+        alert(data);
+        document.getElementById("loading").style.display="none";
+    }
+  });
+}

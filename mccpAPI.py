@@ -189,7 +189,7 @@ class DeliveryCheck():
         
         resp = flask.Response(json.dumps(df))
         resp.headers['Access-Control-Allow-Origin'] = '*'
-        print("delivery check success")
+        print(df)
         return resp
 
 api.add_resource(AccountDetails, '/accountdetails')
