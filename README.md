@@ -10,6 +10,12 @@ Below is a short summary of the items monitored.
 
 url: mccptester.herokuapp.com
 
+## Development
+Server side code developed on python.
+API end points hosted using Flask
+HTML, CSS and Javascript hosted using Flask
+
+## Product info
 ### 1. Account
 Link your MCCP account with you IMS and TMS account
 
