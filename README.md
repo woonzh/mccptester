@@ -15,6 +15,8 @@ Server side code developed on python.
 API end points hosted using Flask
 HTML, CSS and Javascript hosted using Flask
 
+Due to the large data volume, implemented a worker on redis for background processing. Frontend calls server in intervals to query on job status.
+
 ## Product info
 ### 1. Account
 Link your MCCP account with you IMS and TMS account
