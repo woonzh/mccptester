@@ -45,6 +45,7 @@ def delivery():
     return render_template('delivery.html')
 
 @app.route('/test', methods=['POST', 'OPTIONS'])
+@cross_origin()
 def csvTest():
     if request.method == 'POST':
         f=request.files['data']
