@@ -8,6 +8,7 @@ Created on Mon Aug  6 21:40:01 2018
 import csv
 import string
 import math
+from StringIO import StringIO
 
 #files=[('data/'+x) for x in os.listdir('data')]
 #fname=files[0]
@@ -38,9 +39,10 @@ def findErrors(file):
     file=file.decode("utf-8")
     print(str(file))
     
-    writer=csv.writer(file)
+    file=StringIO(file)
+#    writer=csv.writer(file)
     
-    reader=csv.reader(file, delimiter=",")
+    reader=csv.reader(file, delimiter=",", newline="\n")
     
     print("test")
     for cell in reader:
