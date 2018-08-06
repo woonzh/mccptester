@@ -41,6 +41,7 @@ def findErrors(file):
     reader=csv.reader(file, delimiter=",")
     
     for idx, row in enumerate(reader):
+        print(str(idx))
         for idx2, cell in enumerate(row):
             if checkStr(str(cell))==False:
                 print(str(idx)+ " " +str(idx2))
