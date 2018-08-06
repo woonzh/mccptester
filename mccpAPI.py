@@ -213,7 +213,7 @@ api.add_resource(CreateAccount, '/createaccount')
 api.add_resource(ShopeeURL, '/shopeeurl')
 api.add_resource(ShopeeRedirect, '/shopeeredirect')
 api.add_resource(DeliveryCheck, '/deliverycheck')
-api.add_resource(csvUpload, '/csvUpload')
+api.add_resource(csvUpload, '/csvupload')
 
 #test=Accounts
 #res=test.get('')
