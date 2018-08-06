@@ -32,7 +32,9 @@ def getCell(row,col):
 def findErrors(file):
     store={}
     count=0
-    print(file)
+    file.seek(0)
+    file=file.read()
+#    print(file)
     file=file.decode("utf-8")
     reader=csv.reader(file, delimiter=",")
     for cell in reader:
