@@ -32,24 +32,18 @@ def getCell(row,col):
 
 def findErrors(file):
     store={}
-    count=0
     file.seek(0)
     file=file.read()
-    print(file)
     file=file.decode("utf-8")
-    print(str(file))
     
     file=StringIO(file)
-#    writer=csv.writer(file)
     
     reader=csv.reader(file, delimiter=",")
     
-    print("test")
-    for cell in reader:
-        print(cell)
-#        for cell2 in enumerate(cell):
-#            if checkStr(str(cell))==False:
-#                print(str(idx)+ " " +str(idx2))
-#                store[getCell(idx, idx2)]=cell
-#                      
+    for idx, row in enumerate(reader):
+        for idx2, cell in enumerate(row):
+            if checkStr(str(cell))==False:
+                print(str(idx)+ " " +str(idx2))
+                store[getCell(idx, idx2)]=cell
+                      
     return store
