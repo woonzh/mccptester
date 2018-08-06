@@ -34,7 +34,7 @@ def findErrors(file):
     count=0
     file.seek(0)
     file=file.read()
-#    print(file)
+    print(file)
     file=file.decode("utf-8")
     reader=csv.reader(file, delimiter=",")
     for cell in reader:
