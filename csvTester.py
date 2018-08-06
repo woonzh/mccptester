@@ -31,11 +31,15 @@ def getCell(row,col):
 
 def findErrors(file):
     store={}
+    count=0
     reader=csv.reader(file)
-    for idx, row in enumerate(reader):
-        for idx2, cell in enumerate(row):
-            if checkStr(str(cell))==False:
-                print(str(idx)+ " " +str(idx2))
-                store[getCell(idx, idx2)]=cell
-                      
+    for cell in reader:
+        if count<2:
+            print(cell)
+            count+=1
+#        for cell2 in enumerate(cell):
+#            if checkStr(str(cell))==False:
+#                print(str(idx)+ " " +str(idx2))
+#                store[getCell(idx, idx2)]=cell
+#                      
     return store
