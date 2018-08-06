@@ -35,12 +35,14 @@ function csvUpload(){
     url="https://mccptester.herokuapp.com/csvupload";
     checkupload();
     var fd = new FormData();
-    fd.append('data', document.getElementById("csv").files[0]);
+    fd.append('data', document.getElementById("csv").files[0], 'test');
     $.ajax({
       url: url,
-      type: 'GET',
+      type: 'POST',
       processData: false,
       contentType: false,
+      cache:false,
+      async:true,
       dataType: 'json',
       data:fd,
       success: function (data) {
