@@ -42,7 +42,7 @@ def findErrors(file):
     file=StringIO(file)
 #    writer=csv.writer(file)
     
-    reader=csv.reader(file, delimiter=",", newline="\n")
+    reader=csv.reader(file, delimiter=",")
     
     print("test")
     for cell in reader:
