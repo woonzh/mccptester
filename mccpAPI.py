@@ -52,6 +52,8 @@ def csvTest():
         
         resp = flask.Response(json.dumps(df))
         resp.headers['Access-Control-Allow-Origin'] = '*'
+        resp.headers['Access-Control-Allow-Credentials'] = 'true'
+        resp.headers['Access-Control-Allow-Methods']= 'GET,PUT,POST,DELETE,OPTIONS'
         return resp
 
 class CreateAccount(Resource):
