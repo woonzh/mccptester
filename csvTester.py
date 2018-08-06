@@ -37,10 +37,10 @@ def findErrors(file):
     file=file.decode("utf-8")
     print(file)
     reader=csv.reader(file, delimiter=",")
+    
+    print("test")
     for cell in reader:
-        if count<2:
-            print(cell)
-            count+=1
+        print(cell)
 #        for cell2 in enumerate(cell):
 #            if checkStr(str(cell))==False:
 #                print(str(idx)+ " " +str(idx2))
