@@ -32,7 +32,8 @@ def getCell(row,col):
 def findErrors(file):
     store={}
     count=0
-    reader=csv.reader(file)
+    file=file.decode("utf-8")
+    reader=csv.reader(file, delimiter=",")
     for cell in reader:
         if count<2:
             print(cell)
