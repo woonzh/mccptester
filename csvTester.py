@@ -8,7 +8,7 @@ Created on Mon Aug  6 21:40:01 2018
 import csv
 import string
 import math
-from StringIO import StringIO
+from io import StringIO
 
 #files=[('data/'+x) for x in os.listdir('data')]
 #fname=files[0]
