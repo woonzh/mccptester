@@ -44,6 +44,16 @@ def shopee():
 def delivery():
     return render_template('delivery.html')
 
+@app.route('/test', methods=['GET', 'POST'])
+def csvTest():
+    if request.method == 'POST':
+        f=request.files['data']
+        df=csvTester.findErrors(f)
+        
+        resp = flask.Response(json.dumps(df))
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        return resp
+
 class CreateAccount(Resource):
     def get(self):
         name = request.args.get("name" ,type = str, default="")

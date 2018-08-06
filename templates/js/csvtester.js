@@ -4,6 +4,7 @@ function onload(){
 
 function checkupload(){
     var x = document.getElementById("csv");
+    txt = "Select one or more files.";
     if ('files' in x) {
         if (x.files.length == 0) {
             txt = "Select one or more files.";
@@ -33,13 +34,15 @@ function checkupload(){
 function csvUpload(){
     url="https://mccptester.herokuapp.com/csvupload";
     checkupload();
-    file=document.getElementById("csv").value;
+    var fd = new FormData();
+    fd.append('data', document.getElementById("csv").files[0]);
     $.ajax({
       url: url,
       type: 'GET',
-      data:{
-        data:file
-      },
+      processData: false,
+      contentType: false,
+      dataType: 'json',
+      data:fd,
       success: function (data) {
         alert(data);
         document.getElementById("loading").style.display="none";
