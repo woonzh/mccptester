@@ -45,7 +45,5 @@ def findErrors(file):
             if checkStr(str(cell))==False:
                 print(str(idx)+ " " +str(idx2))
                 store[getCell(idx, idx2)]=cell
-    
-    print(store)
                   
     return store

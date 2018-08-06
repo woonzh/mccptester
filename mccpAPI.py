@@ -200,8 +200,7 @@ class csvUpload(Resource):
         
         resp = flask.Response(json.dumps(df))
         resp.headers['Access-Control-Allow-Origin'] = '*'
-        print(df)
-        return
+        return resp
         
 
 api.add_resource(AccountDetails, '/accountdetails')
