@@ -18,6 +18,7 @@ from rq import Connection, get_failed_queue, Queue, get_current_job
 from rq.job import Job
 from worker import conn
 import os
+import csvTester
 
 app = Flask(__name__)
 api = Api(app)
@@ -192,6 +193,17 @@ class DeliveryCheck(Resource):
         print(df)
         return resp
 
+class csvUpload(Resource):
+    def get(self):
+        f=request.files['data']
+        df=csvTester.findErrors(f)
+        
+        resp = flask.Response(json.dumps(df))
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        print(df)
+        return
+        
+
 api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')
 api.add_resource(Inventory, '/inventory')
@@ -202,6 +214,7 @@ api.add_resource(CreateAccount, '/createaccount')
 api.add_resource(ShopeeURL, '/shopeeurl')
 api.add_resource(ShopeeRedirect, '/shopeeredirect')
 api.add_resource(DeliveryCheck, '/deliverycheck')
+api.add_resource(csvUpload, '/csvUpload')
 
 #test=Accounts
 #res=test.get('')
