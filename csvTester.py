@@ -35,12 +35,11 @@ def findErrors(file):
     file.seek(0)
     file=file.read()
     
-    file=str(file)
-    file[2:-1]
-    print(file)
+    file1=str(file)[2:-1]
+    print(file1)
     
-    file=file.decode("utf-8")
-    print(str(file))
+    file2=file.decode("utf-8")
+    print(str(file2))
     
 #    try:
 #        file=file.decode("utf-8")
