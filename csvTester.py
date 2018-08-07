@@ -39,6 +39,9 @@ def findErrors(file):
     file[2:-1]
     print(file)
     
+    file=file.decode("utf-8")
+    print(str(file))
+    
 #    try:
 #        file=file.decode("utf-8")
 #    except:
