@@ -29,6 +29,10 @@ CORS(app)
 def hello():
     return render_template('index.html')
 
+@app.route('/main')
+def main():
+    return render_template('index.html')
+
 @app.route('/accounts')
 def getAccount():
     return render_template('accounts.html')
