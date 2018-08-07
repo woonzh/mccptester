@@ -34,7 +34,10 @@ def findErrors(file):
     store={}
     file.seek(0)
     file=file.read()
-    file=file.decode("utf-8")
+    try:
+        file=file.decode("utf-8")
+    except:
+        file=file.decode()
     
     file=StringIO(file)
     

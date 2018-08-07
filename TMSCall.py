@@ -8,7 +8,7 @@ Created on Mon Mar 12 16:40:15 2018
 import requests
 import json
 
-url = "https://deliver-stag.urbanfox.asia/api/u/woonzh/wKAo_sz3uTXdmoYQFpA97saYsuw/gql"
+url = "https://deliver-stag.urbanfox.asia/api/u/woonzh/mccp_integration/e03CuTMZnWcy5daGVdVzEu2N5Es/gql"
 
 header={
         "Content-Type": "application/graphql"
@@ -24,5 +24,3 @@ def getStatus(track):
     
            
     return df
-
-df=getStatus('ML1493688')

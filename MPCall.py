@@ -178,7 +178,7 @@ def getOrders(increment_id):
     
     return df
 
-def parseShipments(df, skuLst):
+def parseShipments(df, skuLst, nameLst):
     shipments=df['items']
     
     store={}
@@ -190,7 +190,7 @@ def parseShipments(df, skuLst):
             tn=ship['shipping_label']
             if tn[0:2]=='OL' or tn[0:2]=='ML':
                 shipType='UF deliver'
-                info=tc.getStatus('ML1493688')
+                info=tc.getStatus(tn)
             else:
                 shipType='self deliver'
                 info={}
@@ -206,6 +206,7 @@ def parseShipments(df, skuLst):
             try:
                 itId=skuLst.index(name)
                 skuLst=skuLst.pop(itId)
+                nameLst=nameLst.pop(itId)
             except:
                 t=1
             itmLst+=" / "+name
@@ -225,7 +226,7 @@ def parseShipments(df, skuLst):
         summary= str(count) + " shipments have been found for this order."
         
     store["summary"]=summary
-    store["outstanding items"]=str(skuLst)
+    store["outstanding items"]=str(nameLst)
     store["count"]=count
     store["shipments"]=shipStore
          
@@ -234,11 +235,24 @@ def parseShipments(df, skuLst):
 def getOrderSKUs(orderNo):
     df=getOrders(orderNo)['items'][0]['items']
     skuLst=[]
+    nameLst=[]
     for i in df:
         sku=i['sku']
         skuLst.append(sku)
+        name=i['name']
+        nameLst.append(name)
         
-    return skuLst
+    return skuLst, nameLst
+
+def parseIncrementId(incId):
+    try:
+        orderId=int(incId)
+    except:
+        incId=incId[5:]
+        orderId=int(incId)
+    
+#    return orderId
+    return str(orderId)
 
 def getShipments(increment_id):
     getHeader()
@@ -247,18 +261,31 @@ def getShipments(increment_id):
     if len(increment_id)<9:
         increment_id=('0'*(9-len(increment_id)))+increment_id
                      
-    skuLst=getOrderSKUs(increment_id)
+    skuLst, nameLst=getOrderSKUs(increment_id)
     
-#    url=mainurl+'shipments?searchCriteria[filter_groups][0][filters][0][field]=increment_id&searchCriteria[filter_groups][0][filters][0][value]='+increment_id
-    url=mainurl+'shipments?searchCriteria[pageSize]=10&searchCriteria[currentPage]=1'
-    response=requests.get(url, headers = header)
+    order_id=parseIncrementId(increment_id)
+    print(order_id)
     
+#    url=mainurl+'shipments?searchCriteria[filter_groups][0][filters][0][field]=order_id&searchCriteria[filter_groups][0][filters][0][value]='+order_id
+#    url=mainurl+'shipments?searchCriteria[pageSize]=10&searchCriteria[currentPage]=10'
+#    response=requests.get(url, headers = header)
+    
+    url=mainurl+'shipments'
+    body={
+        "searchCriteria[filter_groups][0][filters][0][field]":"increment_id",
+        "searchCriteria[filter_groups][0][filters][0][value]":"000000474"
+            }
+#    
+    response=requests.get(url,headers=header, params=body)
+#    
     df=json.loads(response.content)
     
-    store=parseShipments(df, skuLst)
+    return df
+    
+    store=parseShipments(df, skuLst, nameLst)
         
     return store
 
-df=getShipments('256')
-#df=getOrders('835')
+#df=getShipments('730')
+df=getOrders('000000730')
 #sku=getOrderSKUs('835')
