@@ -36,10 +36,12 @@ def findErrors(file):
     file=file.read()
     
     try:
-        file1=file.decode("utf-8")
+        file1=file.decode("utf-8", errors="ignore")
+        print("utf encoding")
     except:
         try: 
             file1=file.decode("ascii")
+            print("ascii encoding")
         except:
             file1=file.decode()
     
