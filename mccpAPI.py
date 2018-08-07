@@ -14,6 +14,7 @@ import main
 import redis
 import MPCall
 import shopee as sh
+import pandas as pd
 from rq import Connection, get_failed_queue, Queue, get_current_job
 from rq.job import Job
 from worker import conn
@@ -50,7 +51,9 @@ def csvTest():
         f=request.files['data']
         df=csvTester.findErrors(f)
         
-        resp = flask.Response(json.dumps(df))
+        resp = make_response(df.to_csv(header=True, index=False))
+        resp.headers["Content-Disposition"] = "attachment; filename=error_reports.csv"
+        resp.headers["Content-Type"] = "text/csv"
         resp.headers['Access-Control-Allow-Origin'] = '*'
         resp.headers['Access-Control-Allow-Credentials'] = 'true'
         resp.headers['Access-Control-Allow-Methods']= 'GET,PUT,POST,DELETE,OPTIONS'

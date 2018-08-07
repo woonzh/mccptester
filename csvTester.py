@@ -9,6 +9,7 @@ import csv
 import string
 import math
 from io import StringIO
+import pandas as pd
 
 #files=[('data/'+x) for x in os.listdir('data')]
 #fname=files[0]
@@ -34,9 +35,10 @@ def getCell(row,col):
     return val
 
 def findErrors(file):
-    store={}
     file.seek(0)
     file=file.read()
+    
+    df=pd.DataFrame(columns=['cell','value'])
     
     try:
         file1=file.decode()
@@ -50,11 +52,12 @@ def findErrors(file):
     file1=StringIO(file1)
     
     reader=csv.reader(file1, delimiter=",")
+    counter=0
     
     for idx, row in enumerate(reader):
         for idx2, cell in enumerate(row):
             if checkStr(str(cell), success)==False:
                 print(str(idx)+ " " +str(idx2))
-                store[getCell(idx, idx2)]=cell
+                df.loc[counter]=[getCell(idx, idx2), cell]
                   
-    return store
+    return df
