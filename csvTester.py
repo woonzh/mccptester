@@ -38,6 +38,7 @@ def findErrors(file):
         file=file.decode("utf-8")
     except:
         file=str(file)
+        print(file)
     
     file=StringIO(file)
     
