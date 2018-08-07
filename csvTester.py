@@ -16,8 +16,11 @@ from io import StringIO
 strLst=string.printable
 chars=string.ascii_uppercase
 
-def checkStr(tem):
-    return all((i in strLst) for i in tem)
+def checkStr(tem, success):
+    if success:
+        return all((i in strLst) for i in tem)
+    else:
+        return "\ufffd" in tem
 
 def getCell(row,col):
     if col >25:
@@ -37,10 +40,12 @@ def findErrors(file):
     
     try:
         file1=file.decode()
+        success=True
         print("encoding successful")
     except:
-        file1=file.decode("utf-8", errors="ignore")
-        print("utf encoding errors ignored")
+        file1=file.decode("utf-8", errors="replace")
+        success=False
+        print("utf encoding errors replaced")
     
     file1=StringIO(file1)
     
@@ -48,7 +53,7 @@ def findErrors(file):
     
     for idx, row in enumerate(reader):
         for idx2, cell in enumerate(row):
-            if checkStr(str(cell))==False:
+            if checkStr(str(cell), success)==False:
                 print(str(idx)+ " " +str(idx2))
                 store[getCell(idx, idx2)]=cell
                   
