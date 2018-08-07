@@ -36,8 +36,8 @@ def findErrors(file):
     file=file.read()
     
     try:
-        file1=file.decode("utf-8")
-        print("utf encoding successful")
+        file1=file.decode()
+        print("encoding successful")
     except:
         file1=file.decode("utf-8", errors="ignore")
         print("utf encoding errors ignored")
