@@ -47,6 +47,11 @@ function csvUpload(){
       data:fd,
       success: function (data) {
         alert(data);
+        csv = 'data:text/csv;charset=utf-8,' + encodeURI(data);
+        link = document.createElement('a');
+        link.setAttribute('href', csv);
+        link.setAttribute('download', "download.csv");
+        link.click();
         document.getElementById("loading").style.display="none";
       },
       error: function(jqxhr, status, exception) {

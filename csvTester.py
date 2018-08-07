@@ -59,5 +59,6 @@ def findErrors(file):
             if checkStr(str(cell), success)==False:
                 print(str(idx)+ " " +str(idx2))
                 df.loc[counter]=[getCell(idx, idx2), cell]
+                counter+=1
                   
     return df
