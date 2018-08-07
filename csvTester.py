@@ -35,22 +35,17 @@ def findErrors(file):
     file.seek(0)
     file=file.read()
     
-    file1=str(file)[2:-1]
-    print(file1)
+    try:
+        file1=file.decode("utf-8")
+    except:
+        try: 
+            file1=file.decode("ascii")
+        except:
+            file1=file.decode()
     
-    file2=file.decode("utf-8")
-    print(str(file2))
+    file1=StringIO(file1)
     
-#    try:
-#        file=file.decode("utf-8")
-#    except:
-#        file=str(file)
-#        file[2:-1]
-#        print(file)
-    
-    file=StringIO(file)
-    
-    reader=csv.reader(file, delimiter=",")
+    reader=csv.reader(file1, delimiter=",")
     
     for idx, row in enumerate(reader):
         for idx2, cell in enumerate(row):
