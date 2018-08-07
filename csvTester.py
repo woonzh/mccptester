@@ -20,7 +20,7 @@ def checkStr(tem, success):
     if success:
         return all((i in strLst) for i in tem)
     else:
-        return "\ufffd" in tem
+        return "\ufffd" not in tem
 
 def getCell(row,col):
     if col >25:
