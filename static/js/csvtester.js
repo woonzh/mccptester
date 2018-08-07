@@ -33,7 +33,7 @@ function checkupload(){
 
 function csvUpload(){
     document.getElementById("loading").style.display="block";
-    url="https://mccptester.herokuapp.com/test";
+    url="https://mccptester.herokuapp.com/csvupload";
     checkupload();
     var fd = new FormData();
     file=document.getElementById("csv").files[0];

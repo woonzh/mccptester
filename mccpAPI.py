@@ -45,8 +45,12 @@ def shopee():
 def delivery():
     return render_template('delivery.html')
 
-@app.route('/test', methods=['POST', 'OPTIONS'])
-def csvTest():
+@app.route('/csvtester')
+def csvtester():
+    return render_template('csvtester.html')
+
+@app.route('/csvupload', methods=['POST', 'OPTIONS'])
+def csvUpload():
     if request.method == 'POST':
         f=request.files['data']
         df=csvTester.findErrors(f)
@@ -207,15 +211,6 @@ class DeliveryCheck(Resource):
         resp.headers['Access-Control-Allow-Origin'] = '*'
         print(df)
         return resp
-
-class csvUpload(Resource):
-    def get(self):
-        f=request.files['data']
-        df=csvTester.findErrors(f)
-        
-        resp = flask.Response(json.dumps(df))
-        resp.headers['Access-Control-Allow-Origin'] = '*'
-        return resp
         
 
 api.add_resource(AccountDetails, '/accountdetails')
@@ -228,7 +223,6 @@ api.add_resource(CreateAccount, '/createaccount')
 api.add_resource(ShopeeURL, '/shopeeurl')
 api.add_resource(ShopeeRedirect, '/shopeeredirect')
 api.add_resource(DeliveryCheck, '/deliverycheck')
-api.add_resource(csvUpload, '/csvupload')
 
 #test=Accounts
 #res=test.get('')

@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Inventory recon</title>
+    <title>CSV Tester</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -16,7 +16,7 @@
     <link rel='stylesheet prefetch' href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
 
     <!-- Custom styles for this template -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/simple-sidebar.css')}}" rel="stylesheet">
 
 </head>
 
@@ -48,6 +48,9 @@
                 <li>
                     <a href="shopee">Shopee</a>
                 </li>
+                <li>
+                    <a href="csvtester">CSV Tester</a>
+                </li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -58,11 +61,11 @@
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle"><b>Toggle Menu</b></a>
                 <h1>CSV tester</h1>
                 <p>Check for csv errors here.</code>.</p>
-                <p id ="result"><b>Click on the URL, log in and retrieve the shopid</b></p>
+                <p id ="result">Select one file</p>
             </div>
             <p id="shopid"> </p>
             <form action="#" id="shopee" accept-charset="utf-8">
-              <input type="file" id="csv" class="submit" value="submit" onchange="csvUpload();">
+              <input type="file" id="csv" class="submit" value="submit" oninput="csvUpload();">
             </form>
 
         </div>
@@ -72,22 +75,9 @@
     </div>
     <!-- /#wrapper -->
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="js/csvtester.js"></script>
-
-    <script>
-      var url= window.location.href;
-
-      var shopid=url.split("?");
-      if (shopid.length > 1){
-        shopid=(shopid[1]).split("=")[1];
-      }else{
-        shopid="Please Click the submit Button for authentication first."
-      }
-      var item=document.getElementById("shopid");
-      item.innerHTML="<b>Shop id: </b>"+ shopid.toString();
-    </script>
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/csvtester.js')}}"></script>
 
     <!-- Menu Toggle Script -->
     <script>
