@@ -13,6 +13,7 @@ import dbconnector as db
 import main
 import redis
 import MPCall
+import IMSCall
 import shopee as sh
 import pandas as pd
 from rq import Connection, get_failed_queue, Queue, get_current_job
@@ -65,6 +66,18 @@ def csvUpload():
         resp.headers['Access-Control-Allow-Origin'] = '*'
         resp.headers['Access-Control-Allow-Credentials'] = 'true'
         resp.headers['Access-Control-Allow-Methods']= 'GET,PUT,POST,DELETE,OPTIONS'
+        return resp
+    
+@app.route('/csvupload', methods=['POST', 'OPTIONS'])
+def uploadOrders():
+    if request.method=='POST':
+        f=request.files['data']
+        apikey = request.args.get("apikey" ,type = str, default="")
+        ret=IMSCall.parseAndCreateOrders(f,apikey)
+        
+        resp = flask.Response(json.dumps(ret))
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        print(resp)
         return resp
 
 class CreateAccount(Resource):

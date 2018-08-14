@@ -9,8 +9,10 @@ import requests
 import json
 import pandas as pd
 import dbconnector as db
+from io import StringIO
+import csv
 
-url = "https://ims.urbanfox.asia/graphiql"
+url = "https://staging-ims.urbanfox.asia/graphiql"
 
 header=None
 
@@ -27,6 +29,13 @@ def getAPIKey(sellerid):
                 "Authorization": "Bearer "+apikey,
                 "Content-Type": "application/graphql"
                    }
+            
+def manualUpdateAPIKey(apikey):
+    global header
+    header = {
+        "Authorization": "Bearer "+apikey,
+        "Content-Type": "application/graphql"
+           }
 
 def getinventory(sku):
     global header
@@ -96,6 +105,107 @@ def getSingleIMSInventory(imssku, sellerid):
     getAPIKey(sellerid)
     qty=getinventory(imssku)
     return qty
+
+def sendOrders(body):
+    global header
+    body=body.replace("'sku'",'sku')
+    body=body.replace("'quantity'",'quantity')
+    body=body.replace("'",'"')
+    try:
+        response=requests.post(url, headers=header, data=body)
+        df2=json.loads(response.content)
+        print(df2)
+        
+        try:
+            errors=df2['errors'][0]
+            return errors
+        except:
+            resp=df2['data'][0]
+            return resp
+    except:
+        return {"error":"error response"}
+        print(response.content)
+
+def createOrders(df):
+    curOrd=""
+    count=0
+    body=""
+    ordItm=[]
+    replies={}
+    
+    for i in list(df.index):
+        row=df.loc[i]
+        
+        if row['ID'] != curOrd:
+            curOrd = row['ID']
+            if count > 0:
+                body=body.replace('ordItm', str(ordItm))
+                replies[row['ID']]=sendOrders(body)
+                ordItm=[]
+            count+=1
+            
+            body= """mutation {               
+                     createOrder(                                 
+                    referenceNumber1: "refnum"
+                    remarks: "rem"                                 
+                    orderItems: ordItm                
+                    billingAddress: {addressLine1:"badd", addressLine2:"", city:"Singapore", country:"SG", name:"bname", phone:"bphone", postalCode:"bpost"}                 
+                    shippingAddress: {addressLine1:"sadd", addressLine2:"", city:"Singapore", country:"SG", name:"sname", phone:"sphone", postalCode:"spost"}                 
+                    customerAddress: {addressLine1:"cadd", addressLine2:"", city:"Singapore", country:"SG", name:"cname", phone:"cphone", postalCode:"cpost"}               
+                    ) {                 
+                    referenceNumber1                 
+                    remarks                 
+                    orderItems {                   
+                            sku                   
+                            quantity                 
+                            }               
+                    }             
+                }"""
+            body=body.replace("refnum", "SM"+str(row['ID']))
+            body=body.replace("badd", str(row['Billing Address']))
+            body=body.replace("bname", str(row['Customer Name']))
+            body=body.replace("bphone", str(row['Billing Contact Number']))
+            body=body.replace("bpost", str(row['Billing Postal Code']))
+            body=body.replace("sadd", str(row['Shipping Address']))
+            body=body.replace("sname", str(row['Customer Name']))
+            body=body.replace("sphone", str(row['Shipping Contact Number']))
+            body=body.replace("spost", str(row['Shipping Postal Code']))
+            body=body.replace("cadd", str(row['Shipping Address']))
+            body=body.replace("cname", str(row['Customer Name']))
+            body=body.replace("cphone", str(row['Shipping Contact Number']))
+            body=body.replace("cpost", str(row['Shipping Postal Code']))
+        
+        temOrd={
+            "quantity":row['Quantity'],
+            "sku": row['SKU']
+                }
+        qty=getinventory(row['SKU'])
+        ordItm.append(temOrd)
+    
+    body=body.replace('ordItm', str(ordItm))
+    replies[row['ID']]=sendOrders(body)
+    
+    return replies
+
+def parseAndCreateOrders(file, apikey):
+    manualUpdateAPIKey(apikey)
+    file.seek(0)
+    file=file.read()
+    
+    try:
+        file1=file.decode()
+        print("encoding successful")
+    
+        file1=StringIO(file1)
+        
+        df=pd.read_csv(file1)
+        replies=createOrders(df)
+        
+        return replies
+    except:
+        return {'error': "not able to decode"}
+
+#replies=createOrders(pd.read_csv('test.csv'),'gifPV0jPWpgQeuOQBwH7lXAo2b3iI5PnEG//tNmPnJk=')
 
 #res=getSingleIMSInventory('merries3', 1)
 #print(response.content)
