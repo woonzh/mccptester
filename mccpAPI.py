@@ -67,9 +67,13 @@ def csvUpload():
         resp.headers['Access-Control-Allow-Credentials'] = 'true'
         resp.headers['Access-Control-Allow-Methods']= 'GET,PUT,POST,DELETE,OPTIONS'
         return resp
+ 
+@app.route('/orderupload')
+def orderupload():
+    return render_template('orderupload.html')
     
-@app.route('/csvupload', methods=['POST', 'OPTIONS'])
-def uploadOrders():
+@app.route('/orderfile', methods=['POST', 'OPTIONS'])
+def orderFile():
     if request.method=='POST':
         f=request.files['data']
         apikey = request.args.get("apikey" ,type = str, default="")
