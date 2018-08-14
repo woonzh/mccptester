@@ -62,14 +62,23 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle"><b>Toggle Menu</b></a>
-                <h1>CSV tester</h1>
-                <p>Check for csv errors here.</code>.</p>
-                <p id ="result">Select one file</p>
+                <h1>Order upload to IMS</h1>
+                <p>Download the file from seller panel -> reports -> sales. Leave only the rows you would like to upload.</p>
+                <p>One order may contain multuiple rows as each row represents one SKU.</p>
+                <p>Each CSV file should only contain orders from one seller.</p>
+                <p>Fill in the apikey first before uploading the file. </p>
             </div>
-            <p id="shopid"> </p>
-            <form action="#" id="shopee" accept-charset="utf-8">
-              <input type="file" id="csv" class="submit" value="submit" oninput="csvUpload();">
+            <br></br>
+            <p id="result"></p>
+            <br></br>
+            <p id="apikey">API Key: </p>
+            <input type="text" name="firstname" value="">
+            <br></br>
+            <form action="#" id="orderupload" accept-charset="utf-8">
+              <input type="file" id="csv" class="submit" value="submit" oninput="">
             </form>
+            <br></br>
+            <p id="result2"></p>
 
         </div>
 
@@ -80,7 +89,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/csvtester.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/orderupload.js')}}"></script>
 
     <!-- Menu Toggle Script -->
     <script>
