@@ -7,38 +7,33 @@ Created on Sun Apr 29 10:19:04 2018
 
 import requests
 import json
-
-#import redis
-#import os
-#from rq import Worker, Queue, Connection, get_failed_queue, get_current_job
-#from rq.job import Job
-
-#def getResult(jid):
-#    try:
-#        conn = redis.from_url('redis://redistogo:a45da5254d1f41c9dd1228b816f79dc4@albacore.redistogo.com:10191/')
-#        with Connection(conn):
-#            job = Job.fetch(jid)
-#            
-#            if job.is_finished:
-#                ret = job.return_value
-#            elif job.is_queued:
-#                ret = {'status':'in-queue'}
-#            elif job.is_started:
-#                ret = {'status':'waiting'}
-#            elif job.is_failed:
-#                ret = {'status': 'failed'}
-#        
-#        return ret
-#    except Exception as ex:
-#        return ex
+import csv
+import IMSCall
     
-url='https://mccptester.herokuapp.com/deliverycheck'
+#url='https://mccptester.herokuapp.com/deliverycheck'
+#
+#body={
+#    "increment_id":"256"
+#        }
+#
+#response=requests.get(url, params=body)
 
-body={
-    "increment_id":"256"
+url="http://127.0.0.1:5000/orderfile"
+apikey='gifPV0jPWpgQeuOQBwH7lXAo2b3iI5PnEG//tNmPnJk='
+
+file=open('sales_report.csv', 'rb')
+files={
+        'data':file
         }
+body={
+        "apikey":apikey}
 
-response=requests.get(url, params=body)
+df=requests.post(url,files=files, params=body)
+
+#df, results=IMSCall.parseAndCreateOrders(file, apikey)
+
+file.close
+    
 
 #url='https://mccptester.herokuapp.com/accountdetails'
 #response=requests.get(url)
@@ -46,7 +41,7 @@ response=requests.get(url, params=body)
 #url='https://mccptester.herokuapp.com/testworker'
 #response=requests.get(url)
 #
-print(response.content)
+#print(response.content)
 
 #result=getResult('73e253f9-f1ac-4183-a042-bda6a98ddf73')
 #print(result)

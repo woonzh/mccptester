@@ -74,14 +74,18 @@ def orderupload():
     
 @app.route('/orderfile', methods=['POST', 'OPTIONS'])
 def orderFile():
+    print("Order file called")
     if request.method=='POST':
         f=request.files['data']
         apikey = request.args.get("apikey" ,type = str, default="")
-        ret=IMSCall.parseAndCreateOrders(f,apikey)
+        replies, df=IMSCall.parseAndCreateOrders(f,apikey)
         
-        resp = flask.Response(json.dumps(ret))
+        resp = make_response(df.to_csv(header=True, index=False))
+        resp.headers["Content-Disposition"] = "attachment; filename=error_reports.csv"
+        resp.headers["Content-Type"] = "text/csv"
         resp.headers['Access-Control-Allow-Origin'] = '*'
-        print(resp)
+        resp.headers['Access-Control-Allow-Credentials'] = 'true'
+        resp.headers['Access-Control-Allow-Methods']= 'GET,PUT,POST,DELETE,OPTIONS'
         return resp
 
 class CreateAccount(Resource):

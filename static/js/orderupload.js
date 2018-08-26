@@ -32,8 +32,9 @@ function checkupload(){
 }
 
 function csvUpload(){
+    alert("start");
     document.getElementById("loading").style.display="block";
-    url="https://mccptester.herokuapp.com/orderfile";
+    url="http://127.0.0.1:5000/orderfile";
     checkupload();
     var fd = new FormData();
     file=document.getElementById("csv").files[0];
@@ -41,6 +42,7 @@ function csvUpload(){
     apikey=document.getElementById("apikey").value;
     fd.append('apikey', apikey);
     document.getElementById("csv").value="";
+    alert("done");
 
     $.ajax({
       url: url,
@@ -51,8 +53,13 @@ function csvUpload(){
       async:true,
       data:fd,
       success: function (data) {
-        resultDisp=document.getElementById("result2");
-        resultDisp.innerHTML="<br>"+data+"</br>";
+        alert("Success. Results file will be downloaded.");
+        csv = 'data:text/csv;charset=utf-8,' + encodeURI(data);
+        link = document.createElement('a');
+        link.setAttribute('href', csv);
+        link.setAttribute('download', "download.csv");
+        link.click();
+        document.getElementById("loading").style.display="none";
       },
       error: function(jqxhr, status, exception) {
           alert("Error.");

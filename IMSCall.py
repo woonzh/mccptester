@@ -111,17 +111,30 @@ def sendOrders(body):
     body=body.replace("'sku'",'sku')
     body=body.replace("'quantity'",'quantity')
     body=body.replace("'",'"')
+    print(body)
     try:
         response=requests.post(url, headers=header, data=body)
         df2=json.loads(response.content)
         print(df2)
         
-        try:
-            errors=df2['errors'][0]
-            return errors
-        except:
-            resp=df2['data'][0]
-            return resp
+        name=list(df2)[0]
+        
+        if name=="data":
+            msg=df2[name]
+            resp={
+                    name:msg
+                }
+            return resp, True, msg
+        else:
+            msg=df2[name][0]['message']
+            resp={
+                name:msg
+                    }
+            return resp, False, msg
+            
+        print("resp")
+        return resp
+        
     except:
         return {"error":"error response"}
         print(response.content)
@@ -132,16 +145,20 @@ def createOrders(df):
     body=""
     ordItm=[]
     replies={}
+    row=''
+    results=pd.DataFrame(columns=['ID', "Success", "Message"])
     
     for i in list(df.index):
         row=df.loc[i]
         
         if row['ID'] != curOrd:
-            curOrd = row['ID']
             if count > 0:
                 body=body.replace('ordItm', str(ordItm))
-                replies[row['ID']]=sendOrders(body)
+                replies[curOrd], success, msg=sendOrders(body)
+                results.loc[count]=[curOrd, success, msg]
                 ordItm=[]
+                
+            curOrd = row['ID']
             count+=1
             
             body= """mutation {               
@@ -183,9 +200,10 @@ def createOrders(df):
         ordItm.append(temOrd)
     
     body=body.replace('ordItm', str(ordItm))
-    replies[row['ID']]=sendOrders(body)
+    replies[row['ID']], success, msg=sendOrders(body)
+    results.loc[count]=[curOrd, success, msg]
     
-    return replies
+    return replies, results
 
 def parseAndCreateOrders(file, apikey):
     manualUpdateAPIKey(apikey)
@@ -199,9 +217,9 @@ def parseAndCreateOrders(file, apikey):
         file1=StringIO(file1)
         
         df=pd.read_csv(file1)
-        replies=createOrders(df)
+        replies, results=createOrders(df)
         
-        return replies
+        return replies, results
     except:
         return {'error': "not able to decode"}
 
