@@ -32,7 +32,6 @@ function checkupload(){
 }
 
 function csvUpload(){
-    alert("start");
     document.getElementById("loading").style.display="block";
     url="http://127.0.0.1:5000/orderfile";
     checkupload();
@@ -40,9 +39,9 @@ function csvUpload(){
     file=document.getElementById("csv").files[0];
     fd.append('data', file);
     apikey=document.getElementById("apikey").value;
+    alert(apikey);
     fd.append('apikey', apikey);
     document.getElementById("csv").value="";
-    alert("done");
 
     $.ajax({
       url: url,

@@ -78,6 +78,8 @@ def orderFile():
     if request.method=='POST':
         f=request.files['data']
         apikey = request.args.get("apikey" ,type = str, default="")
+        print(apikey)
+        print(f)
         replies, df=IMSCall.parseAndCreateOrders(f,apikey)
         
         resp = make_response(df.to_csv(header=True, index=False))
