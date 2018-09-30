@@ -12,7 +12,7 @@ import dbconnector as db
 from io import StringIO
 import csv
 
-url = "https://staging-ims.urbanfox.asia/graphiql"
+url = "https://ims.urbanfox.asia/graphiql"
 
 header=None
 
@@ -36,6 +36,8 @@ def manualUpdateAPIKey(apikey):
         "Authorization": "Bearer "+apikey,
         "Content-Type": "application/graphql"
            }
+    
+    print(header)
 
 def getinventory(sku):
     global header
@@ -206,6 +208,7 @@ def createOrders(df):
     return replies, results
 
 def parseAndCreateOrders(file, apikey):
+    print('API key: '+apikey)
     manualUpdateAPIKey(apikey)
     file.seek(0)
     file=file.read()

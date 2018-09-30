@@ -32,6 +32,7 @@ function checkupload(){
 }
 
 function csvUpload(){
+    event.preventDefault();
     document.getElementById("loading").style.display="block";
     url="http://127.0.0.1:5000/orderfile";
     checkupload();
@@ -49,7 +50,6 @@ function csvUpload(){
       processData: false,
       contentType: false,
       cache: false,
-      async:true,
       data:fd,
       success: function (data) {
         alert("Success. Results file will be downloaded.");

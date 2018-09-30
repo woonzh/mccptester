@@ -77,7 +77,7 @@ def orderFile():
     print("Order file called")
     if request.method=='POST':
         f=request.files['data']
-        apikey = request.args.get("apikey" ,type = str, default="")
+        apikey = request.form.get("apikey" ,type = str, default="")
         print(apikey)
         print(f)
         replies, df=IMSCall.parseAndCreateOrders(f,apikey)
