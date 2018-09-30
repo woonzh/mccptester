@@ -108,6 +108,14 @@ def getSingleIMSInventory(imssku, sellerid):
     qty=getinventory(imssku)
     return qty
 
+def getSingleIMSInventoryAPIKey(apikey, sku):
+    manualUpdateAPIKey(apikey)
+    qty=getinventory(sku)
+    df={
+        "qty": qty
+            }
+    return df
+
 def sendOrders(body):
     global header
     body=body.replace("'sku'",'sku')

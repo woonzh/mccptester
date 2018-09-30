@@ -40,7 +40,7 @@ def getAccount():
 
 @app.route('/inventory')
 def directInventory():
-    return render_template('inventory.html')
+    return render_template('inventory2.html')
 
 @app.route('/shopee')
 def shopee():
@@ -238,7 +238,20 @@ class DeliveryCheck(Resource):
         resp.headers['Access-Control-Allow-Origin'] = '*'
         print(df)
         return resp
+    
+class InventoryCheck(Resource):
+    def post(self):
+        apikey = request.form.get("apikey", default="")
+        sku = request.form.get("sku", default="")
+        print("apikey: "+str(apikey))
+        print("sku: " +str(sku))
         
+        df=IMSCall.getSingleIMSInventoryAPIKey(apikey, sku)
+        
+        resp = flask.Response(json.dumps(df))
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        print(df)
+        return resp
 
 api.add_resource(AccountDetails, '/accountdetails')
 api.add_resource(Accounts, '/accounts')
@@ -250,6 +263,7 @@ api.add_resource(CreateAccount, '/createaccount')
 api.add_resource(ShopeeURL, '/shopeeurl')
 api.add_resource(ShopeeRedirect, '/shopeeredirect')
 api.add_resource(DeliveryCheck, '/deliverycheck')
+api.add_resource(InventoryCheck, '/inventorycheck')
 
 #test=Accounts
 #res=test.get('')

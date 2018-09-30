@@ -34,13 +34,12 @@ function checkupload(){
 function csvUpload(){
     event.preventDefault();
     document.getElementById("loading").style.display="block";
-    url="http://127.0.0.1:5000/orderfile";
+    url="http://mccptester.herokuapp.com/orderfile";
     checkupload();
     var fd = new FormData();
     file=document.getElementById("csv").files[0];
     fd.append('data', file);
     apikey=document.getElementById("apikey").value;
-    alert(apikey);
     fd.append('apikey', apikey);
     document.getElementById("csv").value="";
 
