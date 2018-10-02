@@ -243,7 +243,7 @@ class InventoryCheck(Resource):
     def post(self):
         apikey = request.form.get("apikey", default="")
         sku = request.form.get("sku", default="")
-        print("apikey: "+str(apikey))
+        print("apikey:  "+str(apikey))
         print("sku: " +str(sku))
         
         df=IMSCall.getSingleIMSInventoryAPIKey(apikey, sku)
