@@ -36,6 +36,8 @@ def manualUpdateAPIKey(apikey):
         "Authorization": "Bearer "+apikey,
         "Content-Type": "application/graphql"
            }
+    
+    print(header)
 
 def getinventory(sku):
     global header
@@ -105,6 +107,14 @@ def getSingleIMSInventory(imssku, sellerid):
     getAPIKey(sellerid)
     qty=getinventory(imssku)
     return qty
+
+def getSingleIMSInventoryAPIKey(apikey, sku):
+    manualUpdateAPIKey(apikey)
+    qty=getinventory(sku)
+    df={
+        "qty": qty
+            }
+    return df
 
 def sendOrders(body):
     global header
@@ -206,6 +216,7 @@ def createOrders(df):
     return replies, results
 
 def parseAndCreateOrders(file, apikey):
+    print('API key: '+apikey)
     manualUpdateAPIKey(apikey)
     file.seek(0)
     file=file.read()
