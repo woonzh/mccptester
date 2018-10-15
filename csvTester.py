@@ -57,7 +57,7 @@ def findErrors(file):
     for idx, row in enumerate(reader):
         for idx2, cell in enumerate(row):
             if checkStr(str(cell), success)==False:
-                print(str(idx)+ " " +str(idx2))
+#                print(str(idx)+ " " +str(idx2))
                 df.loc[counter]=[getCell(idx, idx2), cell]
                 counter+=1
                   

@@ -12,7 +12,7 @@ import dbconnector as db
 from io import StringIO
 import csv
 
-url = "https://staging-ims.urbanfox.asia/graphiql"
+url = "https://ims.urbanfox.asia/graphiql"
 
 header=None
 
