@@ -103,9 +103,12 @@ def orderFile2():
         print(apikey)
         print(f)
         
+        f.seek(0)
+        f=f.read()
+        
         q=Queue(connection=conn)
         
-        job=q.enqueue(IMSCall.parseAndCreateOrders, f, apikey)
+        job=q.enqueue(IMSCall.parseAndCreateOrders2, f, apikey)
         return str(job.id)
         
 #        resp = make_response(df.to_csv(header=True, index=False))

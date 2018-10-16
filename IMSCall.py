@@ -233,6 +233,24 @@ def parseAndCreateOrders(file, apikey):
         return replies, results
     except:
         return {'error': "not able to decode"}
+    
+def parseAndCreateOrders2(file, apikey):
+    print('API key: '+apikey)
+    manualUpdateAPIKey(apikey)
+    
+    try:
+        file1=file.decode()
+        print("encoding successful")
+    
+        file1=StringIO(file1)
+        
+        df=pd.read_csv(file1)
+        replies, results=createOrders(df)
+        
+        return replies, results
+    except:
+        return {'error': "not able to decode"}
+
 
 #replies=createOrders(pd.read_csv('test.csv'),'gifPV0jPWpgQeuOQBwH7lXAo2b3iI5PnEG//tNmPnJk=')
 
