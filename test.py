@@ -18,7 +18,7 @@ import IMSCall
 #
 #response=requests.get(url, params=body)
 
-url="http://127.0.0.1:5000/orderfile"
+url="https://mccptester.herokuapp.com/orderfile2"
 apikey='gifPV0jPWpgQeuOQBwH7lXAo2b3iI5PnEG//tNmPnJk='
 
 file=open('sales_report.csv', 'rb')
@@ -29,11 +29,15 @@ body={
         "apikey":apikey}
 
 df=requests.post(url,files=files, params=body)
-
-#df, results=IMSCall.parseAndCreateOrders(file, apikey)
+jid=df.content.decode()
 
 file.close
-    
+
+#url='https://mccptester.herokuapp.com/jobreport'
+#body={
+#      "jobid": jid
+#      }
+#response=requests.get(url, params=body)
 
 #url='https://mccptester.herokuapp.com/accountdetails'
 #response=requests.get(url)

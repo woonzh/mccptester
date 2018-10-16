@@ -97,6 +97,9 @@ def orderFile2():
     if request.method=='POST':
         f=request.files['data']
         apikey = request.form.get("apikey" ,type = str, default="")
+        if apikey=="":
+            apikey = request.args.get("apikey" ,type = str, default="")
+            
         print(apikey)
         print(f)
         
