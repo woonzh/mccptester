@@ -213,14 +213,18 @@ class Failedworkers(Resource):
 class GetJobReport(Resource):
     def get(self):
         jobid = request.args.get("jobid" ,type = str, default="")
+        csv = request.args.get("csv" ,type = str, default="")
         redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
         conn = redis.from_url(redis_url)
         ret={}
         with Connection(conn):
             job = Job.fetch(jobid,conn)
             if job.is_finished:
-                ret['status']='Completed'
-                ret['result']=job.return_value
+                if csv=="yes":
+                    wd
+                else:
+                    ret['status']='Completed'
+                    ret['result']=job.return_value
             elif job.is_queued:
                 ret['status']='in-queue'
             elif job.is_started:
@@ -231,6 +235,31 @@ class GetJobReport(Resource):
         resp = flask.Response(json.dumps(ret))
         resp.headers['Access-Control-Allow-Origin'] = '*'
         print("header success")
+        return resp
+    
+class GetJobReportCSV(Resource):
+    def get(self):
+        jobid = request.args.get("jobid" ,type = str, default="")
+        redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
+        conn = redis.from_url(redis_url)
+        ret={}
+        with Connection(conn):
+            job = Job.fetch(jobid,conn)
+            if job.is_finished:
+                df=job.return_value
+            elif job.is_queued:
+                ret['status']='in-queue'
+            elif job.is_started:
+                ret['status']='waiting'
+            elif job.is_failed:
+                ret['status']='failed'
+        
+        resp = make_response(df.to_csv(header=True, index=False))
+        resp.headers["Content-Disposition"] = "attachment; filename=error_reports.csv"
+        resp.headers["Content-Type"] = "text/csv"
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        resp.headers['Access-Control-Allow-Credentials'] = 'true'
+        resp.headers['Access-Control-Allow-Methods']= 'GET,PUT,POST,DELETE,OPTIONS'
         return resp
     
 class ShopeeURL(Resource):
@@ -293,6 +322,7 @@ api.add_resource(ShopeeURL, '/shopeeurl')
 api.add_resource(ShopeeRedirect, '/shopeeredirect')
 api.add_resource(DeliveryCheck, '/deliverycheck')
 api.add_resource(InventoryCheck, '/inventorycheck')
+api.add_resource(GetJobReportCSV, '/jobreportcsv')
 
 #test=Accounts
 #res=test.get('')
