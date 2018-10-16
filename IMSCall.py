@@ -247,7 +247,7 @@ def parseAndCreateOrders2(file, apikey):
         df=pd.read_csv(file1)
         replies, results=createOrders(df)
         
-        return replies, results
+        return results
     except:
         return {'error': "not able to decode"}
 
