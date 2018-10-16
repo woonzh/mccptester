@@ -80,6 +80,7 @@ def orderFile():
         apikey = request.form.get("apikey" ,type = str, default="")
         print(apikey)
         print(f)
+        
         replies, df=IMSCall.parseAndCreateOrders(f,apikey)
         
         resp = make_response(df.to_csv(header=True, index=False))
@@ -89,6 +90,28 @@ def orderFile():
         resp.headers['Access-Control-Allow-Credentials'] = 'true'
         resp.headers['Access-Control-Allow-Methods']= 'GET,PUT,POST,DELETE,OPTIONS'
         return resp
+    
+@app.route('/orderfile2', methods=['POST', 'OPTIONS'])
+def orderFile2():
+    print("Order file called")
+    if request.method=='POST':
+        f=request.files['data']
+        apikey = request.form.get("apikey" ,type = str, default="")
+        print(apikey)
+        print(f)
+        
+        q=Queue(connection=conn)
+        
+        job=q.enqueue(IMSCall.parseAndCreateOrders, f, apikey)
+        return str(job.id)
+        
+#        resp = make_response(df.to_csv(header=True, index=False))
+#        resp.headers["Content-Disposition"] = "attachment; filename=error_reports.csv"
+#        resp.headers["Content-Type"] = "text/csv"
+#        resp.headers['Access-Control-Allow-Origin'] = '*'
+#        resp.headers['Access-Control-Allow-Credentials'] = 'true'
+#        resp.headers['Access-Control-Allow-Methods']= 'GET,PUT,POST,DELETE,OPTIONS'
+#        return resp
 
 class CreateAccount(Resource):
     def get(self):
