@@ -174,7 +174,7 @@ def createOrders(df):
             body= """mutation {               
                      createOrder(                                 
                     referenceNumber1: "refnum"
-                    remarks: "rem"                                 
+                    remarks: "remarksstore"                                 
                     orderItems: ordItm                
                     billingAddress: {addressLine1:"badd", addressLine2:"", city:"Singapore", country:"SG", name:"bname", phone:"bphone", postalCode:"bpost"}                 
                     shippingAddress: {addressLine1:"sadd", addressLine2:"", city:"Singapore", country:"SG", name:"sname", phone:"sphone", postalCode:"spost"}                 
@@ -201,6 +201,7 @@ def createOrders(df):
             body=body.replace("cname", str(row['Customer Name']))
             body=body.replace("cphone", str(row['Shipping Contact Number']))
             body=body.replace("cpost", str(row['Shipping Postal Code']))
+            body=body.replace("remarksstore", str(row['Order Number']))
         
         temOrd={
             "quantity":row['Quantity'],
