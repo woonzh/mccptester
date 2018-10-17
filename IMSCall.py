@@ -204,7 +204,7 @@ def createOrders(df):
         
         temOrd={
             "quantity":row['Quantity'],
-            "sku": row['SKU']
+            "sku": str(row['SKU'])
                 }
         qty=getinventory(row['SKU'])
         ordItm.append(temOrd)
