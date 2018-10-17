@@ -34,15 +34,15 @@ function checkupload(){
 function getReply(jid){
   url="https://mccptester.herokuapp.com/jobreportcsv";
   var succ=false;
+  var fd = new FormData();
+  fd.append('jobid', jid);
   $.ajax({
     url: url,
     type: 'POST',
     processData: false,
     contentType: false,
     cache: false,
-    data:{
-      jobid:jid
-    },
+    data:fd,
     success: function (data) {
       workercheck(data, jid);
     },
