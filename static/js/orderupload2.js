@@ -58,6 +58,7 @@ function workercheck(data, jid){
     var status=result['status'];
     if (status=="failed") {
       alert("Job failed");
+      document.getElementById("loading").style.display="none";
     }
     else{
       setTimeout(function(){ getReply(jid); }, 5000);
@@ -69,6 +70,7 @@ function workercheck(data, jid){
     link.setAttribute('href', csv);
     link.setAttribute('download', "download.csv");
     link.click();
+    document.getElementById("loading").style.display="none";
   }
 }
 
@@ -94,8 +96,7 @@ function csvUpload(){
       success: function (data) {
         var result=JSON.parse(data);
         jid=result['jobid'];
-        setTimeout(function(){ getReply(jid); }, 5000);
-        document.getElementById("loading").style.display="none";
+        setTimeout(function(){ getReply(jid); }, 10000);
       },
       error: function(jqxhr, status, exception) {
           alert("Error.");
