@@ -37,6 +37,9 @@ function getReply(jid){
   $.ajax({
     url: url,
     type: 'POST',
+    processData: false,
+    contentType: false,
+    cache: false,
     data:{
       jobid:jid
     },
