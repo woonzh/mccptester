@@ -60,7 +60,7 @@ function workercheck(data, jid){
       alert("Job failed");
     }
     else{
-      setTimeout(function(){ getReply(jid); }, 3000);
+      setTimeout(function(){ getReply(jid); }, 5000);
     }
   }catch(err){
     alert("Success. Results file will be downloaded.");
@@ -94,7 +94,7 @@ function csvUpload(){
       success: function (data) {
         var result=JSON.parse(data);
         jid=result['jobid'];
-        setTimeout(function(){ getReply(jid); }, 3000);
+        setTimeout(function(){ getReply(jid); }, 5000);
         document.getElementById("loading").style.display="none";
       },
       error: function(jqxhr, status, exception) {

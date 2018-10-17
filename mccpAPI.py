@@ -249,6 +249,7 @@ def jobReportCSV():
     with Connection(conn):
         job = Job.fetch(jobid,conn)
         if job.is_finished:
+            ret['status']='finished'
             df=job.return_value
         elif job.is_queued:
             ret['status']='in-queue'
@@ -257,13 +258,19 @@ def jobReportCSV():
         elif job.is_failed:
             ret['status']='failed'
     
-    resp = make_response(df.to_csv(header=True, index=False))
-    resp.headers["Content-Disposition"] = "attachment; filename=error_reports.csv"
-    resp.headers["Content-Type"] = "text/csv"
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    resp.headers['Access-Control-Allow-Credentials'] = 'true'
-    resp.headers['Access-Control-Allow-Methods']= 'GET,PUT,POST,DELETE,OPTIONS'
-    return resp
+    if ret['status']!='finished':
+        resp = flask.Response(json.dumps(ret))
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        print("header success")
+        return resp
+    else:
+        resp = make_response(df.to_csv(header=True, index=False))
+        resp.headers["Content-Disposition"] = "attachment; filename=error_reports.csv"
+        resp.headers["Content-Type"] = "text/csv"
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        resp.headers['Access-Control-Allow-Credentials'] = 'true'
+        resp.headers['Access-Control-Allow-Methods']= 'GET,PUT,POST,DELETE,OPTIONS'
+        return resp
     
 class ShopeeURL(Resource):
     def get(self):
