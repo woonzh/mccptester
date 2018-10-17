@@ -31,7 +31,7 @@ function checkupload(){
     document.getElementById("result").innerHTML = txt;
 }
 
-function getReply(jid, name){
+function getReply(jid){
   url="https://mccptester.herokuapp.com/jobreportcsv";
   var succ=false;
   $.ajax({
@@ -41,7 +41,7 @@ function getReply(jid, name){
       jobid:jid
     },
     success: function (data) {
-      workercheck(data);
+      workercheck(data, jid);
     },
     error: function(jqxhr, status, exception) {
         alert('Exception:', exception);
@@ -49,7 +49,7 @@ function getReply(jid, name){
   });
 }
 
-function workercheck(data){
+function workercheck(data, jid){
   try{
     var result=JSON.parse(data);
     var status=result['status'];
@@ -57,7 +57,7 @@ function workercheck(data){
       alert("Job failed");
     }
     else{
-      setTimeout(function(){ getReply(jid, name); }, 3000);
+      setTimeout(function(){ getReply(jid); }, 3000);
     }
   }catch(err){
     alert("Success. Results file will be downloaded.");
@@ -72,7 +72,7 @@ function workercheck(data){
 function csvUpload(){
     event.preventDefault();
     document.getElementById("loading").style.display="block";
-    url="https://mccptester.herokuapp.com/orderfile";
+    url="https://mccptester.herokuapp.com/orderfile2";
     checkupload();
     var fd = new FormData();
     file=document.getElementById("csv").files[0];
@@ -89,7 +89,9 @@ function csvUpload(){
       cache: false,
       data:fd,
       success: function (data) {
-        setTimeout(function(){ getReply(jid, name); }, 3000);
+        var result=JSON.parse(data);
+        jid=result['jobid'];
+        setTimeout(function(){ getReply(jid); }, 3000);
         document.getElementById("loading").style.display="none";
       },
       error: function(jqxhr, status, exception) {

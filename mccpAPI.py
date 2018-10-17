@@ -113,15 +113,13 @@ def orderFile2():
         q=Queue(connection=conn)
         
         job=q.enqueue(IMSCall.parseAndCreateOrders2, f, apikey)
-        return str(job.id)
+        result={
+            "jobid": str(job.id)
+        }
         
-#        resp = make_response(df.to_csv(header=True, index=False))
-#        resp.headers["Content-Disposition"] = "attachment; filename=error_reports.csv"
-#        resp.headers["Content-Type"] = "text/csv"
-#        resp.headers['Access-Control-Allow-Origin'] = '*'
-#        resp.headers['Access-Control-Allow-Credentials'] = 'true'
-#        resp.headers['Access-Control-Allow-Methods']= 'GET,PUT,POST,DELETE,OPTIONS'
-#        return resp
+        resp = flask.Response(json.dumps(result))
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        return resp
 
 class CreateAccount(Resource):
     def get(self):
