@@ -5,7 +5,7 @@ function onload(){
 function csvUpload(){
     event.preventDefault();
     document.getElementById("loading").style.display="block";
-    url="http://mccptester.herokuapp.com/inventorycheck";
+    url="https://mccptester.herokuapp.com/inventorycheck";
     var fd = new FormData();
     apikey=document.getElementById("apikey").value;
     fd.append('apikey', apikey);
