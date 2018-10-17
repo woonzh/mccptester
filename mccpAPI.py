@@ -71,6 +71,10 @@ def csvUpload():
 @app.route('/orderupload')
 def orderupload():
     return render_template('orderupload.html')
+
+@app.route('/orderupload2')
+def orderupload2():
+    return render_template('orderupload2.html')
     
 @app.route('/orderfile', methods=['POST', 'OPTIONS'])
 def orderFile():
