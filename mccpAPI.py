@@ -240,7 +240,7 @@ class GetJobReport(Resource):
         return resp
     
 @app.route('/jobreportcsv', methods=['POST', 'OPTIONS'])
-def get(self):
+def jobReportCSV():
     jobid = request.args.get("jobid" ,type = str, default="")
     redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
     conn = redis.from_url(redis_url)
